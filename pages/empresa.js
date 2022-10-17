@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {useQuery, useMutation,gql} from '@apollo/client';
 import TablaEmpresa from '../componentes/tablaEmpresa';
+import Link from 'next/link';
 
 const OBTENER_EMPRESAS = gql`
 query ObtenerEmpresas {
@@ -26,6 +27,11 @@ return (
   <div>
     <Layout>
     <h1 className='text-2xl text-gray-800 font-light'>Mis Empresas</h1>
+    <Link href="/nuevaempresa">
+        <a className='bg-blue-800 py-2 px-5 mt-3 inline-block text-white hover:bg-gray-800 hover:text-gray-200 mb-3 rounded uppercase fotn-bold text-sm'>
+          Nueva Empresa
+        </a>
+      </Link>
     <table className='table-auto shadow-md mt-10 w-full w-lg'>
       <thead className='bg-gray-800'>
         <tr className='text-white'>
