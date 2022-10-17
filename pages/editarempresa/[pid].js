@@ -5,8 +5,7 @@ import {useQuery,useMutation, gql} from '@apollo/client'
 import {Formik} from 'formik'
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
-import ComboEmpresas from '../../componentes/ComboEmpresas';
-import ComboProductos from '../../componentes/ComboProductos';
+import ComboTipoE from '../componentes/ComboTipoE';
 
 const OBTENER_TIPO_EMPRESA = gql`
 query ObtenerTiposEmpresas {
@@ -155,7 +154,7 @@ const EditarEmpresa = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="numero_sucursal">
-                                    Sucursal disponible
+                                    Sucursal 
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -234,7 +233,7 @@ const EditarEmpresa = () => {
                                     onBlur={props.handleBlur}
                                 >
                                     {empresas.data.obtenerTiposEmpresas.map(TipoEmpresa =>(
-                                        <ComboEmpresas
+                                        <ComboTipoE
                                             key={TipoEmpresa.id}
                                             TipoEmpresa ={TipoEmpresa }
                                         />
