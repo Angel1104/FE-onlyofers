@@ -56,30 +56,3 @@ query ObtenerEmpresas {
     telefono
   }
 }`
-
-export default function Index() {
-
-  //obtener empresas de graphql
-  const{data,loading,error}=useQuery(OBTENER_EMPRESAS);
-  if (loading) {
-    return 'cargando....'
-  }
-
-  return (
-    <div>
-      <Layout>
-        <h1 className='text-2xl text-gray-800 font-light mb-4 '>Empresas</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-x-6 gap-y-10">
-            {data.obtenerEmpresas.map(empresa=>(
-              <Empresa
-                Key={empresa.id}
-                producto={empresa}
-              />
-            ))}
-
-    </div>
-
-      </Layout>
-    </div>
-  )
-}
