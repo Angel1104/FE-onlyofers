@@ -106,7 +106,7 @@ const TablaEmpresa = ({empresa}) => {
             <button 
                     type="button" 
                     className='flex justify-center items-center bg-green-800 py-2 px-4 w-full text-white rounded text-xd uppercase font-bold '
-                    onClick={()=>EditarProducto}
+                    onClick={()=>editarEmpresa}
                     >
                     
                     Editar
