@@ -147,7 +147,7 @@ const EditarProducto = () => {
     }
     return ( 
         <Layout>
-        <h1 className="text-2xl text-gray-800 font-ligth">Ediitar Producto</h1>
+        <h1 className="text-2xl text-gray-800 font-ligth">Editar Producto</h1>
         <div className="flex justify-center mt-5 ">
             <div className="w-full max-w-lg">
 
