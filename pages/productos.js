@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {useQuery, useMutation,gql} from '@apollo/client';
 import TablaProducto from '../componentes/tablaProducto';
+import Link from 'next/link';
 
 const OBTENER_PRODUCTOS = gql`
 query ObtenerProductos {
@@ -30,6 +31,11 @@ export default function Productos() {
     <div>
       <Layout>
       <h1 className='text-2xl text-gray-800 font-light'>Mis productos</h1>
+      <Link href="/nuevoproducto">
+        <a className='bg-blue-800 py-2 px-5 mt-3 inline-block text-white hover:bg-gray-800 hover:text-gray-200 mb-3 rounded uppercase fotn-bold text-sm'>
+          Nuevo producto
+        </a>
+      </Link>
       <table className='table-auto shadow-md mt-10 w-full w-lg'>
         <thead className='bg-gray-800'>
           <tr className='text-white'>
