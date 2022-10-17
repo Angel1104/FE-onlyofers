@@ -5,8 +5,7 @@ import * as Yup from 'yup';
 import {useMutation,gql, useQuery} from '@apollo/client';
 import {useRouter} from 'next/router';
 import Swal from 'sweetalert2';
-import ComboEmpresas from '../componentes/ComboEmpresas';
-import ComboProductos from '../componentes/ComboProductos';
+import ComboTipoE from '../componentes/ComboTipoE';
 
 const NUEVA_EMPRESA=gql`
 mutation nuevaEmpresa($input: EmpresaInput){
@@ -28,7 +27,6 @@ query ObtenerEmpresas {
       nombre_empresa
       numero_sucursal
       direccion_empresa
-      creado
       telefono
       tipo_empresa
       id
@@ -239,7 +237,7 @@ const NuevaEmpresa = () => {
                                     onBlur={formik.handleBlur}
                                 >
                                     {empresas.data.obtenerTiposEmpresas.map(TipoEmpresa =>(
-                                        <ComboEmpresas
+                                        <ComboTipoE
                                             key={TipoEmpresa.id}
                                             TipoEmpresa ={TipoEmpresa }
                                         />

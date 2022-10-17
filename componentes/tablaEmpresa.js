@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {useQuery, useMutation,gql} from '@apollo/client';
+import Router from 'next/router';
 
 const ELIMINAR_EMPRESA = gql`
 mutation EliminarEmpresa($eliminarEmpresaId: ID!) {
@@ -72,7 +73,15 @@ const TablaEmpresa = ({empresa}) => {
 
             }
           })
-    }
+    };
+
+    const editarEmpresa =()=>{
+        Router.push({
+            pathname: "/editarempresa/[id]",
+            query:{id}
+        })
+    };
+
     return ( 
         <tr>
             <td className='border px-4 py-2'>{nombre_empresa}</td>
@@ -97,7 +106,7 @@ const TablaEmpresa = ({empresa}) => {
             <button 
                     type="button" 
                     className='flex justify-center items-center bg-green-800 py-2 px-4 w-full text-white rounded text-xd uppercase font-bold '
-                    // onClick={()=>EditarProducto}
+                    onClick={()=>EditarProducto}
                     >
                     
                     Editar
