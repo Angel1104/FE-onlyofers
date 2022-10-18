@@ -4,7 +4,7 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {useMutation,gql, useQuery} from '@apollo/client';
 import {useRouter} from 'next/router';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'
 import ComboEmpresas from '../componentes/ComboEmpresas';
 import ComboProductos from '../componentes/ComboProductos';
 
@@ -66,7 +66,7 @@ const NuevoProducto = () => {
     const router = useRouter();
 
     //mutation para crear producto
-    const  [nuevoProducto ]= useMutation(NUEVO_PRODUCTO, {
+    const  [nuevoProducto]= useMutation(NUEVO_PRODUCTO, {
         update(cache, { data:{nuevoProducto}}){
             // obtener el objeto de cache que deseamos actualizar
             const { obtenerProductos} = cache.readQuery({ query: OBTENER_PRODUCTOS});
@@ -142,10 +142,10 @@ const NuevoProducto = () => {
                     }
                 });
                 //producto creado correctamente mostrar mensaje
-                
+                //console.log(data)
                 Swal.fire(
-                    'Creado!',
-                    'Producto creado correctamente',
+                    'Creado',
+                    'Creado correctamente',
                     'success'
                 )
                 router.push('/productos');
