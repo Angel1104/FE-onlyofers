@@ -7,7 +7,8 @@ import {useRouter} from 'next/router';
 import Swal from 'sweetalert2'
 import ComboEmpresas from '../componentes/ComboEmpresas';
 import ComboProductos from '../componentes/ComboProductos';
-
+import { getMaxAge } from 'next/dist/server/image-optimizer';
+import fs from 'fs-extend';
 const NUEVO_PRODUCTO=gql`
 mutation nuevoProducto($input: ProductoInput){
     nuevoProducto (input : $input){
@@ -27,7 +28,7 @@ mutation nuevoProducto($input: ProductoInput){
 `;
 
 const OBTENER_PRODUCTOS= gql`
-query ObtenerProductos {
+query obtenerProductos {
     obtenerProductos {
       nombre_producto
       descripcion_producto
@@ -69,7 +70,7 @@ const NuevoProducto = () => {
     const  [nuevoProducto]= useMutation(NUEVO_PRODUCTO, {
         update(cache, { data:{nuevoProducto}}){
             // obtener el objeto de cache que deseamos actualizar
-            const { obtenerProductos} = cache.readQuery({ query: OBTENER_PRODUCTOS});
+            const {obtenerProductos} = cache.readQuery({ query: OBTENER_PRODUCTOS});
 
             // reeescriibr el cache( el cache nunca se debe modificar se reescribe)
             cache.writeQuery({
@@ -114,7 +115,11 @@ const NuevoProducto = () => {
                             .min(
                                 Yup.ref("fecha_elaboracion"),
                                 "La fecha de vencimiento debe ser despues de la de elaboracion"
-                            ),
+                            )
+                            .max( 
+                                Yup.date(), 
+                                "La fecha sobrepaso los 5 anios"
+                                ),
             estado: Yup.string()
                     .required('Estado obligatorio'),
             empresa: Yup.string()
@@ -142,7 +147,7 @@ const NuevoProducto = () => {
                     }
                 });
                 //producto creado correctamente mostrar mensaje
-                //console.log(data)
+                //console.log data
                 Swal.fire(
                     'Creado',
                     'Creado correctamente',
