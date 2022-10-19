@@ -3,9 +3,7 @@ import Layout from '../componentes/Layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {useQuery, useMutation,gql} from '@apollo/client';
-import Link from "next/link";
 import Producto from '../componentes/cardProducto';
-import Empresa from '../componentes/cardEmpresa';
 
 const OBTENER_PRODUCTOS = gql`
 query ObtenerProductos {
