@@ -95,6 +95,7 @@ const NuevoProducto = () => {
             empresa: '',
             tipo_producto: ''
         },
+        
         validationSchema: Yup.object({
             nombre : Yup.string()
                     .required('El Nombre es Obligatorio'),
@@ -107,14 +108,21 @@ const NuevoProducto = () => {
                         .positive('No se aceptan numeros negativos'), 
             descripcion: Yup.string()
                         .required('La descripcion es obligatoria'),
+
             fecha_elaboracion: Yup.date()
-                            .required('La fecha de elaboracion es obligatoria'),
+                            .required('La fecha de elaboracion es obligatoria')
+                            .min("10/10/2017", "La fecha de elaboracion no debe ser menos de 5 años")
+                            .max("10/20/2022", "La fecha de elaboracion no puede pasar la fecha actual"),
+            
             fecha_vencimiento: Yup.date()
                             .required('La fecha de vencimiento es obligatoria')
                             .min(
                                 Yup.ref("fecha_elaboracion"),
+                                
                                 "La fecha de vencimiento debe ser despues de la de elaboracion"
-                            ),
+                            )
+                            .max("10/10/2025", "La fecha de vencimiento no debe pasar de los 5 años"),
+          
             estado: Yup.string()
                     .required('Estado obligatorio'),
             empresa: Yup.string()
