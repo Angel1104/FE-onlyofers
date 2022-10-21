@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
 import ComboEmpresas from '../componentes/ComboEmpresas';
 import ComboProductos from '../componentes/ComboProductos';
 import { getMaxAge } from 'next/dist/server/image-optimizer';
-import fs from 'fs-extend';
+
 const NUEVO_PRODUCTO=gql`
 mutation nuevoProducto($input: ProductoInput){
     nuevoProducto (input : $input){
@@ -115,11 +115,7 @@ const NuevoProducto = () => {
                             .min(
                                 Yup.ref("fecha_elaboracion"),
                                 "La fecha de vencimiento debe ser despues de la de elaboracion"
-                            )
-                            .max( 
-                                Yup.date(), 
-                                "La fecha sobrepaso los 5 anios"
-                                ),
+                            ),
             estado: Yup.string()
                     .required('Estado obligatorio'),
             empresa: Yup.string()
