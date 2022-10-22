@@ -153,7 +153,7 @@ const NuevoProducto = () => {
                             .required('La fecha de vencimiento es obligatoria')
                             .min(
                                 Yup.ref("fecha_elaboracion"),
-                                "La fecha de vencimiento debe ser despues de la de elaboracion"
+                                "La fecha de vencimiento debe ser despues de la de elaboración"
                             ),
             estado: Yup.string()
                     .required('Estado obligatorio'),
