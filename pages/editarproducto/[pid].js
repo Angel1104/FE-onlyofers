@@ -28,7 +28,6 @@ query ObtenerTiposProductos {
 const OBTENER_PRODUCTO =gql `
 query Query($obtenerProductoId: ID!) {
     obtenerProducto(id: $obtenerProductoId) {
-      id
       nombre_producto
       descripcion_producto
       precio
@@ -58,22 +57,30 @@ mutation ActualizarProducto($actualizarProductoId: ID!, $input: ProductoInput) {
   }
 `;
 
+
 const EditarProducto = () => {
     //obtener el id actual
     const router = useRouter ();
     const { query:{pid} } = router;
-    const id = pid;
+
     //consultar para obtener el producto
     const producto = useQuery(OBTENER_PRODUCTO , {
         variables:{
-            obtenerProductoId:id
+            obtenerProductoId:pid
         }
     });
     const empresas =useQuery(OBTENER_EMPRESAS);
     const productos=useQuery(OBTENER_TIPO_PRODUCTOS);
     
-    
+    //mutatios de actualizar
     const [actualizarProducto]=useMutation(ACTUALIZAR_PRODUCTO);
+
+    if(producto.loading) return 'Cargando...';
+    if (empresas.loading)  return 'cargando...';
+    if (productos.loading) return 'cargando...';
+    if(!producto.data) return 'accion no permitida';
+
+    const {obtenerProducto} = producto.data;
 
     const schemaValidacion = Yup.object({
         nombre_producto : Yup.string()
@@ -81,12 +88,12 @@ const EditarProducto = () => {
                 .min(3, "El nombre tiene que tener al menos 3 carácteres")
                 .max(50, "El nombre no puede superar los 50 carácteres"),
         existencia : Yup.number()
-                    .required('La cantidad existente es Obligatorio')
-                    .positive('No se aceptan numeros negativos')
+                    .required('La cantidad del producto es Obligatorio')
+                    .positive('No se aceptan numeros negativos o "0"')
                     .integer('la existencia debe ser en numeros enteros'),
         precio : Yup.number()
                     .required('El  precio es Obligatorio')
-                    .positive('No se aceptan numeros negativos'), 
+                    .positive('No se aceptan numeros negativos o "0"'), 
         descripcion_producto: Yup.string()
                     .required('La descripcion es obligatoria')
                     .min(3, "La descripcion tiene que tener al menos 3 carácteres")
@@ -104,26 +111,19 @@ const EditarProducto = () => {
         empresa: Yup.string()
                 .required('La empresa es obligatoria'),
         tipo_producto: Yup.string()
-                        .required('El tipo es obligaorio')
+                        .required('El tipo de producto es obligaorio')
         
     });
-    if(producto.loading) return 'Cargando....';
-    if (empresas.loading) {
-        return 'cargando...'
-    };
-    if (productos.loading) {
-        return 'cargando...'
-    };
-
-    const {obtenerProducto} = producto.data;
-
+    
+    
     //modificar el producto en la bd
     const actualizarInfoProducto = async valores =>{
-        const {id,nombre_producto, descripcion_producto, precio, existencia, fecha_elaboracion,fecha_vencimiento,tipo_producto,empresa,estado} = valores;
+        console.log(valores)
+        const {nombre_producto, descripcion_producto, precio, existencia, fecha_elaboracion,fecha_vencimiento,tipo_producto,empresa,estado} = valores;
             try {
                 const {data} = await actualizarProducto({
                     variables:{
-                        actualizarProductoId:id,
+                        actualizarProductoId:pid,
                         input : {
                             nombre_producto,
                             descripcion_producto,
@@ -137,7 +137,7 @@ const EditarProducto = () => {
                         } 
                     }
                 });
-                
+                console.log(data)
                 Swal.fire(
                     'Actualizado!',
                     'Producto Actualizado correctamente',
@@ -156,12 +156,12 @@ const EditarProducto = () => {
             <div className="w-full max-w-lg">
 
                 <Formik
-                    validationSchema={schemaValidacion }
                     enableReinitialize
                     initialValues={obtenerProducto}
-                    onSubmit={(valores)=>{
+                    validationSchema={schemaValidacion }
+                    onSubmit={ valores=>{
                         actualizarInfoProducto(valores);
-                    }}
+                    } }
                 >
                 {props => {
                     return(
@@ -240,7 +240,7 @@ const EditarProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="descripcion_producto">
-                                    Descripcion
+                                    Descripción
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -269,7 +269,7 @@ const EditarProducto = () => {
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="fecha_elaboracion"
                                     type="date"
-                                    value={props.values.fecha_elaboracion}
+                                    //value={props.values.fecha_elaboracion}
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                 />
@@ -291,7 +291,7 @@ const EditarProducto = () => {
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="fecha_vencimiento"
                                     type="date"
-                                    value={props.values.fecha_vencimiento}
+                                    //value={props.values.fecha_vencimiento}
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                 />

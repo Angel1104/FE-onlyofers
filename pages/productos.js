@@ -40,7 +40,7 @@ export default function Productos() {
         <thead className='bg-gray-800'>
           <tr className='text-white'>
             <th className='w1/8 py-2'>Nombre</th>
-            <th className='w1/8 py-2'>Descripcion</th>
+            <th className='w1/8 py-2'>Descripción</th>
             <th className='w1/8 py-2'>Precio</th>
             <th className='w1/8 py-2'>Stock</th>
             <th className='w1/8 py-2'>Fecha Ven</th>

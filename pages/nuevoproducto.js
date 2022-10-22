@@ -7,6 +7,9 @@ import {useRouter} from 'next/router';
 import Swal from 'sweetalert2'
 import ComboEmpresas from '../componentes/ComboEmpresas';
 import ComboProductos from '../componentes/ComboProductos';
+import Router from 'next/router';
+
+
 
 const NUEVO_PRODUCTO=gql`
 mutation nuevoProducto($input: ProductoInput){
@@ -32,13 +35,8 @@ query ObtenerProductos {
       nombre_producto
       descripcion_producto
       precio
-      existencia
-      fecha_elaboracion
       fecha_vencimiento
-      empresa
       estado
-      tipo_producto
-      id
     }
   }
 `;
@@ -65,8 +63,10 @@ const NuevoProducto = () => {
     //routing
     const router = useRouter();
 
+
     //mutation para crear producto
-    const  [nuevoProducto]= useMutation(NUEVO_PRODUCTO, {
+    const  [nuevoProducto]= useMutation(NUEVO_PRODUCTO
+        , {
         update(cache, { data:{nuevoProducto}}){
             // obtener el objeto de cache que deseamos actualizar
             const { obtenerProductos} = cache.readQuery({ query: OBTENER_PRODUCTOS});
@@ -79,10 +79,46 @@ const NuevoProducto = () => {
                 }
             })
         }
-    });
+    }
+    );
+
+    const confirmarAgregarProducto =()=>{
+        Swal.fire({
+            title: 'Desea Agregar este producto?',
+            
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Agregar',
+            cancelButtonText: 'No, Cancelar'
+          })
+    };
+
+    const Cancelar =()=>{
+        Swal.fire({
+            title: 'Desea Cancelar el registro?',
+            text: "Volvera a pagina productos ",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'si',
+            cancelButtonText: 'No'
+        }).then(async(result) => {
+            if (result.isConfirmed) {
+
+                Router.push({
+                    pathname: "/productos"
+                    
+                })
+
+            }
+          })
+    };
 
     
-
+//form para new product
     const formik = useFormik({
         initialValues:{
             nombre : '',
@@ -125,7 +161,6 @@ const NuevoProducto = () => {
                     .required('La empresa es obligatoria'),
             tipo_producto: Yup.string()
                             .required('El tipo es obligaorio')
-            
         }),
         onSubmit: async valores => {
             const {nombre, descripcion, precio, existencia, fecha_elaboracion,fecha_vencimiento,tipo_producto,empresa,estado} = valores;
@@ -146,7 +181,7 @@ const NuevoProducto = () => {
                     }
                 });
                 //producto creado correctamente mostrar mensaje
-                //console.log(data)
+                console.log(data)
                 Swal.fire(
                     'Creado',
                     'Creado correctamente',
@@ -159,7 +194,6 @@ const NuevoProducto = () => {
             }
         }
     });
-
     // obtener productos de graphql
     const empresas =useQuery(OBTENER_EMPRESAS);
     const productos=useQuery(OBTENER_TIPO_PRODUCTOS);
@@ -169,7 +203,7 @@ const NuevoProducto = () => {
     if (productos.loading) {
         return 'cargando...'
     };
-
+    
 
     return ( 
         <Layout>
@@ -251,13 +285,13 @@ const NuevoProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="descripcion">
-                                    Descripcion
+                                    Descripción
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="descripcion"
                                     type="text"
-                                    placeholder="Descripcion del producto"
+                                    placeholder="Descripción del producto"
                                     value={formik.values.descripcion}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -274,7 +308,7 @@ const NuevoProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fecha_elaboracion">
-                                    Fecha de Elaboracion
+                                    Fecha de Elaboración
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -347,10 +381,12 @@ const NuevoProducto = () => {
                                 <select
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="empresa"
+                                    
                                     value={formik.values.empresa}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 >
+                                    <option selected>selecione una empresa</option>
                                     {empresas.data.obtenerEmpresas.map(empresa=>(
                                         <ComboEmpresas
                                             key={empresa.id}
@@ -379,6 +415,7 @@ const NuevoProducto = () => {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 >
+                                    <option selected>selecione un tipo de producto</option>
                                     {productos.data.obtenerTiposProductos.map(TipoProducto =>(
                                         <ComboProductos
                                             key={TipoProducto.id}
@@ -396,11 +433,26 @@ const NuevoProducto = () => {
                                 ) : null
                             }
 
-                    <input
-                        type="submit"
-                        className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
-                        value="Agregar Nuevo Producto"
-                    />
+                <button 
+                    type="submit" 
+                    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
+                    onClick={()=>confirmarAgregarProducto()}
+                    >
+                    
+                    AGREGAR NUEVO PRODUCTO
+                    
+                </button>
+                
+                <button 
+                    type="submit" 
+
+                    className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
+                    onClick={()=>Cancelar()}
+                    >
+                    
+                    Cancelar
+                    
+                </button>
                 </form>
             </div>
         </div>
