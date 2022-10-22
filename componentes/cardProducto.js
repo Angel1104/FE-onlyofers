@@ -10,7 +10,7 @@ const Producto = ({producto}) => {
                     <h1 class="font-semibold">{nombre_producto}</h1>
                     <p className='font-semibold'>Descripción: </p>
                     <p className='text-sm'>{descripcion_producto}</p>
-                    <p class="text-sm">Precio: {precio} $</p>
+                    <p class="text-sm">Precio: {precio} Bs</p>
                     <p class="text-sm">Stock disponible: {existencia}</p>
                 </div>
         </a>
