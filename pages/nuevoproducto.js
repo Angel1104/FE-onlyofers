@@ -133,7 +133,9 @@ const NuevoProducto = () => {
         },
         validationSchema: Yup.object({
             nombre : Yup.string()
-                    .required('El Nombre es Obligatorio'),
+                    .required('El Nombre es Obligatorio')
+                    .min(3, "El nombre tiene que tener al menos 3 carácteres")
+                    .max(50, "El nombre no puede superar los 50 carácteres"),
             existencia : Yup.number()
                         .required('La cantidad existente es Obligatorio')
                         .positive('No se aceptan numeros negativos')
@@ -142,7 +144,9 @@ const NuevoProducto = () => {
                         .required('El  precio es Obligatorio')
                         .positive('No se aceptan numeros negativos'), 
             descripcion: Yup.string()
-                        .required('La descripcion es obligatoria'),
+                        .required('La descripcion es obligatoria')
+                        .min(3, "La descripcion tiene que tener al menos 3 carácteres")
+                        .max(150, "La descripcion no puede superar los 150 carácteres"),
             fecha_elaboracion: Yup.date()
                             .required('La fecha de elaboracion es obligatoria'),
             fecha_vencimiento: Yup.date()
