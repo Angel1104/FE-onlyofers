@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import ComboEmpresas from '../../componentes/ComboEmpresas';
 import ComboProductos from '../../componentes/ComboProductos';
+import Router from 'next/router';
+
 
 const OBTENER_EMPRESAS = gql`
 query ObtenerEmpresas {
@@ -153,6 +155,29 @@ const EditarProducto = () => {
                 console.log(error)
             }
     }
+
+    const Cancelar =()=>{
+        Swal.fire({
+            title: 'Desea Cancelar el registro?',
+            text: "Volvera a pagina productos ",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'si',
+            cancelButtonText: 'No'
+        }).then(async(result) => {
+            if (result.isConfirmed) {
+
+                Router.push({
+                    pathname: "../productos"
+                    
+                })
+
+            }
+          })
+    };
+
     return ( 
         <Layout>
         <h1 className="text-2xl text-gray-800 font-ligth">Editar Producto</h1>
@@ -394,6 +419,13 @@ const EditarProducto = () => {
                                 className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
                                 value="Editar Producto"
                             />
+                            <button 
+                            type="submit" 
+                            className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
+                            onClick={()=>Cancelar()}
+                            >
+                                Cancelar
+                            </button>
                 </form>
                     );
                 }}
