@@ -32,13 +32,8 @@ query ObtenerProductos {
       nombre_producto
       descripcion_producto
       precio
-      existencia
-      fecha_elaboracion
       fecha_vencimiento
-      empresa
       estado
-      tipo_producto
-      id
     }
   }
 `;
@@ -65,8 +60,10 @@ const NuevoProducto = () => {
     //routing
     const router = useRouter();
 
+
     //mutation para crear producto
-    const  [nuevoProducto]= useMutation(NUEVO_PRODUCTO, {
+    const  [nuevoProducto]= useMutation(NUEVO_PRODUCTO
+        , {
         update(cache, { data:{nuevoProducto}}){
             // obtener el objeto de cache que deseamos actualizar
             const { obtenerProductos} = cache.readQuery({ query: OBTENER_PRODUCTOS});
@@ -79,10 +76,11 @@ const NuevoProducto = () => {
                 }
             })
         }
-    });
+    }
+    );
 
     
-
+//form para new product
     const formik = useFormik({
         initialValues:{
             nombre : '',
@@ -121,7 +119,6 @@ const NuevoProducto = () => {
                     .required('La empresa es obligatoria'),
             tipo_producto: Yup.string()
                             .required('El tipo es obligaorio')
-            
         }),
         onSubmit: async valores => {
             const {nombre, descripcion, precio, existencia, fecha_elaboracion,fecha_vencimiento,tipo_producto,empresa,estado} = valores;
@@ -142,7 +139,7 @@ const NuevoProducto = () => {
                     }
                 });
                 //producto creado correctamente mostrar mensaje
-                //console.log(data)
+                console.log(data)
                 Swal.fire(
                     'Creado',
                     'Creado correctamente',
@@ -155,7 +152,6 @@ const NuevoProducto = () => {
             }
         }
     });
-
     // obtener productos de graphql
     const empresas =useQuery(OBTENER_EMPRESAS);
     const productos=useQuery(OBTENER_TIPO_PRODUCTOS);
@@ -165,7 +161,7 @@ const NuevoProducto = () => {
     if (productos.loading) {
         return 'cargando...'
     };
-
+    
 
     return ( 
         <Layout>
