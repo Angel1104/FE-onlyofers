@@ -16,5 +16,5 @@ const Producto = ({producto}) => {
         </a>
     )
 }
- {};
+{};
 export default Producto;
