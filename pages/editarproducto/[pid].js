@@ -86,12 +86,12 @@ const EditarProducto = () => {
         nombre_producto : Yup.string()
                 .required('El Nombre es Obligatorio'),
         existencia : Yup.number()
-                    .required('La cantidad existente es Obligatorio')
-                    .positive('No se aceptan numeros negativos')
+                    .required('La cantidad del producto es Obligatorio')
+                    .positive('No se aceptan numeros negativos o "0"')
                     .integer('la existencia debe ser en numeros enteros'),
         precio : Yup.number()
                     .required('El  precio es Obligatorio')
-                    .positive('No se aceptan numeros negativos'), 
+                    .positive('No se aceptan numeros negativos o "0"'), 
         descripcion: Yup.string()
                     .required('La descripcion es obligatoria'),
         fecha_elaboracion: Yup.date()
@@ -107,7 +107,7 @@ const EditarProducto = () => {
         empresa: Yup.string()
                 .required('La empresa es obligatoria'),
         tipo_producto: Yup.string()
-                        .required('El tipo es obligaorio')
+                        .required('El tipo de producto es obligaorio')
         
     });
     
@@ -236,7 +236,7 @@ const EditarProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="descripcion_producto">
-                                    Descripcion
+                                    Descripción
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
