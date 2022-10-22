@@ -135,14 +135,18 @@ const NuevoProducto = () => {
             nombre : Yup.string()
                     .required('El Nombre es Obligatorio')
                     .min(3, "El nombre tiene que tener al menos 3 carácteres")
-                    .max(50, "El nombre no puede superar los 50 carácteres"),
+                    .max(50, "El nombre no puede superar los 50 carácteres")
+                    .matches(
+                        /^[aA-zZ\s]+$/,
+                        'No puede usar caracteres especiales'
+                      ),
             existencia : Yup.number()
                         .required('La cantidad existente es Obligatorio')
-                        .positive('No se aceptan numeros negativos')
+                        .positive('No se aceptan numeros negativos o "0"')
                         .integer('la existencia debe ser en numeros enteros'),
             precio : Yup.number()
                         .required('El  precio es Obligatorio')
-                        .positive('No se aceptan numeros negativos'), 
+                        .positive('No se aceptan numeros negativos o "0"'), 
             descripcion: Yup.string()
                         .required('La descripcion es obligatoria')
                         .min(3, "La descripcion tiene que tener al menos 3 carácteres")

@@ -86,7 +86,11 @@ const EditarProducto = () => {
         nombre_producto : Yup.string()
                 .required('El Nombre es Obligatorio')
                 .min(3, "El nombre tiene que tener al menos 3 carácteres")
-                .max(50, "El nombre no puede superar los 50 carácteres"),
+                .max(50, "El nombre no puede superar los 50 carácteres")
+                .matches(
+                    /^[aA-zZ\s]+$/,
+                    'No puede usar caracteres especiales'
+                  ),
         existencia : Yup.number()
                     .required('La cantidad del producto es Obligatorio')
                     .positive('No se aceptan numeros negativos o "0"')
@@ -263,7 +267,7 @@ const EditarProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fecha_elaboracion">
-                                    Fecha de Elaboracion
+                                    Fecha de Elaboración
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
