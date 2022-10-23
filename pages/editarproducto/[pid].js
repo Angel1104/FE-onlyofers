@@ -56,3 +56,59 @@ mutation ActualizarProducto($actualizarProductoId: ID!, $input: ProductoInput) {
     }
   }
   `;
+  const EditarProducto = () => {
+    //obtener el id actual
+    const router = useRouter ();
+    const { query:{pid} } = router;
+
+    //consultar para obtener el producto
+    const producto = useQuery(OBTENER_PRODUCTO , {
+        variables:{
+            obtenerProductoId:pid
+        }
+    });
+    const empresas =useQuery(OBTENER_EMPRESAS);
+    const productos=useQuery(OBTENER_TIPO_PRODUCTOS);
+    
+    //mutatios de actualizar
+    const [actualizarProducto]=useMutation(ACTUALIZAR_PRODUCTO);
+
+    if(producto.loading) return 'Cargando...';
+    if (empresas.loading)  return 'cargando...';
+    if (productos.loading) return 'cargando...';
+    if(!producto.data) return 'accion no permitida';
+
+    const {obtenerProducto} = producto.data;
+
+    const schemaValidacion = Yup.object({
+        nombre_producto : Yup.string()
+                .required('El Nombre es Obligatorio')
+                .min(3, "El nombre tiene que tener al menos 3 carácteres")
+                .max(50, "El nombre no puede superar los 50 carácteres"),
+        existencia : Yup.number()
+                    .required('La cantidad del producto es Obligatorio')
+                    .positive('No se aceptan numeros negativos o "0"')
+                    .integer('la existencia debe ser en numeros enteros'),
+        precio : Yup.number()
+                    .required('El  precio es Obligatorio')
+                    .positive('No se aceptan numeros negativos o "0"'), 
+        descripcion_producto: Yup.string()
+                    .required('La descripcion es obligatoria')
+                    .min(3, "La descripcion tiene que tener al menos 3 carácteres")
+                    .max(150, "La descripcion no puede superar los 150 carácteres"),
+        fecha_elaboracion: Yup.date()
+                        .required('La fecha de elaboracion es obligatoria'),
+        fecha_vencimiento: Yup.date()
+                        .required('La fecha de vencimiento es obligatoria')
+                        .min(
+                            Yup.ref("fecha_elaboracion"),
+                            "La fecha de vencimiento debe ser despues de la de elaboracion"
+                        ),
+        estado: Yup.string()
+                .required('Estado obligatorio'),
+        tipo_empresa: Yup.string()
+                .required('La empresa es obligatoria'),
+        tipo_producto: Yup.string()
+                        .required('El tipo de producto es obligatorio'),     
+    });
+}
