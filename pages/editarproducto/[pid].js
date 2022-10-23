@@ -2,7 +2,6 @@ import React from 'react';
 import {useRouter} from 'next/router'
 import Layout from '../../componentes/Layout'
 import {useQuery,useMutation, gql} from '@apollo/client'
-import {Formik} from 'formik'
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import { Formik } from 'formik';
