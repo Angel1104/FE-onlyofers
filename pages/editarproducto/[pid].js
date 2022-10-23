@@ -256,6 +256,118 @@ mutation ActualizarProducto($actualizarProductoId: ID!, $input: ProductoInput) {
                                     </div>
                                 ) : null
                             } 
+                    <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="existencia">
+                                    Cantidad disponible
+                                </label>
+                                <input
+                                    className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="existencia"
+                                    type="number"
+                                    placeholder="Cantidad disponible"
+                                    value={props.values.existencia}
+                                    onChange={props.handleChange}
+                                    onBlur={props.handleBlur}
+                                />
+                            </div>
+                            {
+                                props.touched.existencia && props.errors.existencia ? (
+                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                        <p className="font-bold">Error</p>
+                                        <p>{props.errors.existencia}</p>
+                                    </div>
+                                ) : null
+                            }
+
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="precio">
+                                    Precio
+                                </label>
+                                <input
+                                    className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="precio"
+                                    type="number"
+                                    placeholder="Precio"
+                                    value={props.values.precio}
+                                    onChange={props.handleChange}
+                                    onBlur={props.handleBlur}
+                                />
+                            </div>
+                            {
+                                props.touched.precio && props.errors.precio ? (
+                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                        <p className="font-bold">Error</p>
+                                        <p>{props.errors.precio}</p>
+                                    </div>
+                                ) : null
+                            }
+
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="descripcion_producto">
+                                    Descripción
+                                </label>
+                                <input
+                                    className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="descripcion_producto"
+                                    type="text"
+                                    placeholder="Descripcion del producto"
+                                    value={props.values.descripcion_producto}
+                                    onChange={props.handleChange}
+                                    onBlur={props.handleBlur}
+                                />
+                            </div>
+                            {
+                                props.touched.descripcion_producto && props.errors.descripcion_producto ? (
+                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                        <p className="font-bold">Error</p>
+                                        <p>{props.errors.descripcion_producto}</p>
+                                    </div>
+                                ) : null
+                            }
+
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fecha_elaboracion">
+                                    Fecha de Elaboracion
+                                </label>
+                                <input
+                                    className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="fecha_elaboracion"
+                                    type="date"
+                                    //value={props.values.fecha_elaboracion}
+                                    onChange={props.handleChange}
+                                    onBlur={props.handleBlur}
+                                />
+                            </div>
+                            {
+                                props.touched.fecha_elaboracion && props.errors.fecha_elaboracion ? (
+                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                        <p className="font-bold">Error</p>
+                                        <p>{props.errors.fecha_elaboracion}</p>
+                                    </div>
+                                ) : null
+                            }
+
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fecha_vencimiento">
+                                    Fecha de Vencimiento
+                                </label>
+                                <input
+                                    className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="fecha_vencimiento"
+                                    type="date"
+                                    //value={props.values.fecha_vencimiento}
+                                    onChange={props.handleChange}
+                                    onBlur={props.handleBlur}
+                                />
+                            </div>
+                            {
+                                props.touched.fecha_vencimiento && props.errors.fecha_vencimiento ? (
+                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                        <p className="font-bold">Error</p>
+                                        <p>{props.errors.fecha_vencimiento}</p>
+                                    </div>
+                                ) : null
+                            }
               </form>
               );
            }}
