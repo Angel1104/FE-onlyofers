@@ -153,7 +153,7 @@ const NuevoProducto = () => {
                             .required('La fecha de vencimiento es obligatoria')
                             .min(
                                 Yup.ref("fecha_elaboracion"),
-                                "La fecha de vencimiento debe ser despues de la de elaboracion"
+                                "La fecha de vencimiento debe ser después de la de elaboración"
                             ),
             estado: Yup.string()
                     .required('Estado obligatorio'),
@@ -386,7 +386,7 @@ const NuevoProducto = () => {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 >
-                                    <option selected>selecione una empresa</option>
+                                    <option selected>Seleccione</option>
                                     {empresas.data.obtenerEmpresas.map(empresa=>(
                                         <ComboEmpresas
                                             key={empresa.id}
@@ -415,7 +415,7 @@ const NuevoProducto = () => {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 >
-                                    <option selected>selecione un tipo de producto</option>
+                                    <option selected>Seleccione</option>
                                     {productos.data.obtenerTiposProductos.map(TipoProducto =>(
                                         <ComboProductos
                                             key={TipoProducto.id}
