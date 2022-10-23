@@ -368,6 +368,91 @@ mutation ActualizarProducto($actualizarProductoId: ID!, $input: ProductoInput) {
                                     </div>
                                 ) : null
                             }
+                             <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="estado">
+                                    Estado del producto
+                                </label>
+                                <select
+                                    className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="estado"
+                                    value={props.values.estado}
+                                    onChange={props.handleChange}
+                                    onBlur={props.handleBlur}
+                                >
+                                    <option>DISPONIBLE</option>
+                                    <option>TERMINADO</option>
+                                </select>
+                            </div>
+                            {
+                                props.touched.estado && props.errors.estado ? (
+                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                        <p className="font-bold">Error</p>
+                                        <p>{props.errors.estado}</p>
+                                    </div>
+                                ) : null
+                            }
+
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="empresa">
+                                    Empresa
+                                </label>
+                                <select
+                                    className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="empresa"
+                                    value={props.values.empresa}
+                                    onChange={props.handleChange}
+                                    onBlur={props.handleBlur}
+                                >
+                                    {empresas.data.obtenerEmpresas.map(empresa=>(
+                                        <ComboEmpresas
+                                            key={empresa.id}
+                                            empresa={empresa}
+                                        />
+                                    ))}
+                                </select>
+                            </div>
+                            {
+                                props.touched.empresa && props.errors.empresa ? (
+                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                        <p className="font-bold">Error</p>
+                                        <p>{props.errors.empresa}</p>
+                                    </div>
+                                ) : null
+                            }
+
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tipo_producto">
+                                    Tipo de producto //el tipo de producto
+                                </label>
+                                <select
+                                    className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="tipo_producto"
+                                    value={props.values.tipo_producto}
+                                    onChange={props.handleChange}
+                                    onBlur={props.handleBlur}
+                                >
+                                    {productos.data.obtenerTiposProductos.map(TipoProducto =>(
+                                        <ComboProductos
+                                            key={TipoProducto.id}
+                                            TipoProducto ={TipoProducto }
+                                        />
+                                    ))}
+                                </select>
+                            </div>
+                            {
+                                props.touched.tipo_producto && props.errors.tipo_producto ? (
+                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                        <p className="font-bold">Error</p>
+                                        <p>{props.errors.tipo_producto}</p>
+                                    </div>
+                                ) : null
+                            }
+
+                            <input
+                                type="submit"
+                                className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
+                                value="Editar Producto" // Si se omite el valor de la propiedad , el resultado devuelto al leer esta propiedad será la cadena on
+                            />
               </form>
               );
            }}
