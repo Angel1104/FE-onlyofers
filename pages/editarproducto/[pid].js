@@ -108,11 +108,10 @@ const EditarProducto = () => {
                         ),
         estado: Yup.string()
                 .required('Estado obligatorio'),
-        empresa: Yup.string()
+        tipo_empresa: Yup.string()
                 .required('La empresa es obligatoria'),
         tipo_producto: Yup.string()
-                        .required('El tipo de producto es obligaorio')
-        
+                        .required('El tipo de producto es obligatorio'),     
     });
     
     
