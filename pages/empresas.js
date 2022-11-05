@@ -6,7 +6,8 @@ import TablaEmpresa from '../componentes/tablaEmpresa';
 import Link from 'next/link';
 
 const OBTENER_EMPRESAS = gql`
-query ObtenerEmpresas
+query ObtenerEmpresas {
+  obtenerEmpresas {
     nombre_empresa
     numero_sucursal
     direccion_empresa
