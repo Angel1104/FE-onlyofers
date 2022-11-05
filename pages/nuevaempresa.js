@@ -11,24 +11,25 @@ import Router from 'next/router';
 
 
 const NUEVA_EMPRESA=gql`
-mutation nuevaEmpresa($input: EmpresaInput){
-    nuevaEmpresa (input : $input){
-        id
-        nombre_empresa
-        numero_sucursal
-        direccion_empresa
-        telefono
-        tipo_empresa
-    }
-  }
-`;
-
-const OBTENER_EMPRESAS= gql`
-query ObtenerEmpresas {
-    obtenerEmpresas {
+mutation NuevaEmpresa($input: EmpresaInput) {
+    nuevaEmpresa(input: $input) {
       nombre_empresa
       numero_sucursal
       direccion_empresa
+      telefono
+      tipo_empresa
+    }
+  }  
+`;
+
+const OBTENER_EMPRESAS= gql`
+query ObtenerEmpresa {
+    obtenerEmpresas {
+      id
+      nombre_empresa
+      numero_sucursal
+      direccion_empresa
+      tipo_empresa
       telefono
     }
   }
@@ -69,7 +70,7 @@ const NuevaEmpresa = () => {
     const confirmarAgregarEmpresa =()=>{
         Swal.fire({
             title: 'Desea Agregar esta Empresa?',
-            
+
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -133,9 +134,9 @@ const NuevaEmpresa = () => {
 
             telefono : Yup.number()
                       .required('El  Telefono es Obligatorio')
-                      .positive('No se aceptan numeros negativos o "0"')
-                      .max(8)
-                      .min(7), 
+                      .positive('No se aceptan numeros negativos o "0"'),
+                    //   .max(8)
+                    //   .min(6), 
 
             tipo_empresa: Yup.string()
                             .required('Se debe seleccionar el tipo de empresa')
@@ -316,7 +317,7 @@ const NuevaEmpresa = () => {
                 </button>
                 
                 <button 
-                    type="submit" 
+                    type="" 
                     className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                     onClick={()=>Cancelar()}
                     >
