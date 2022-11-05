@@ -150,7 +150,7 @@ const NuevaEmpresa = () => {
                             numero_sucursal: sucursal,
                             direccion_empresa: direccion,
                             telefono: telefono,
-                            tipo_empresa: tipo_empresa,
+                            tipo_empresa: tipo_empresa
                         } 
                     }
                 });

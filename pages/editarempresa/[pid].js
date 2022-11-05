@@ -29,7 +29,7 @@ query Query($obtenerEmpresaId: ID!) {
 `;
 
 const ACTUALIZAR_EMPRESA=gql`
-mutation ActualizarEmpreza($actualizarEmpresaId: ID!, $input: EmpresaInput) {
+mutation ActualizarEmpresa($actualizarEmpresaId: ID!, $input: EmpresaInput) {
     actualizarEmpresa(id: $actualizarEmpresaId, input: $input) {
         nombre_empresa
         numero_sucural
@@ -56,7 +56,7 @@ const EditarEmpresa = () => {
     const empresas=useQuery(OBTENER_TIPO_EMPRESAS);
     
     //mutatios de actualizar
-    const [actualizarEmpreza]=useMutation(ACTUALIZAR_EMPRESA);
+    const [actualizarEmpresa]=useMutation(ACTUALIZAR_EMPRESA);
 
     if(empresa.loading) return 'Cargando...';
     if (empresas.loading)  return 'cargando...';
@@ -116,10 +116,10 @@ const EditarEmpresa = () => {
                 console.log(data)
                 Swal.fire(
                     'Actualizado!',
-                    'Empreza Actualizada correctamente',
+                    'Empresa Actualizada correctamente',
                     'success'
                   )
-                router.push('/productos');
+                router.push('/empresas');
                 
             } catch (error) {
                 console.log(error)
