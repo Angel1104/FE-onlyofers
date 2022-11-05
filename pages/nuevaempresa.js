@@ -11,7 +11,7 @@ import Router from 'next/router';
 
 
 const NUEVA_EMPRESA=gql`
-mutation nuevoEmpresa($input: EmpresaInput){
+mutation nuevaEmpresa($input: EmpresaInput){
     nuevaEmpresa (input : $input){
         id
         nombre_empresa
@@ -43,15 +43,15 @@ query ObtenerTiposEmpresas {
   }
 `;
 
-const NuevoEmpresa = () => {
+const NuevaEmpresa = () => {
     //routing
     const router = useRouter();
 
 
     //mutation para crear empresa
-    const  [nuevoEmpresa]= useMutation(NUEVO_EMPRESA
+    const  [nuevaEmpresa]= useMutation(NUEVA_EMPRESA
         , {
-        update(cache, { data:{nuevoEmpresa}}){
+        update(cache, { data:{nuevaEmpresa}}){
             // obtener el objeto de cache que deseamos actualizar
             const { obtenerEmpresas} = cache.readQuery({ query: OBTENER_EMPRESAS});
 
@@ -59,7 +59,7 @@ const NuevoEmpresa = () => {
             cache.writeQuery({
                 query: OBTENER_EMPRESAS,
                 data:{
-                    obtenerEmpresas : [...obtenerEmpresas , nuevoEmpresa]
+                    obtenerEmpresas : [...obtenerEmpresas , nuevaEmpresa]
                 }
             })
         }
@@ -177,7 +177,7 @@ const NuevoEmpresa = () => {
 
     return ( 
         <Layout>
-            <h1 className="text-2xl text-gray-800 font-ligth text-center">Nuevo Empresa</h1>
+            <h1 className="text-2xl text-gray-800 font-ligth text-center">Nueva Empresa</h1>
             <div className="flex justify-center mt-5 ">
             <div className="w-full max-w-lg">
                 <form
@@ -308,7 +308,7 @@ const NuevoEmpresa = () => {
                 <button 
                     type="submit" 
                     className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
-                    onClick={()=>confirmarAgregarProducto()}
+                    onClick={()=>confirmarAgregarEmpresa()}
                     >
                     
                     AGREGAR NUEVA EMPRESA
@@ -329,4 +329,4 @@ const NuevoEmpresa = () => {
      );
 }
  {};
-export default NuevoEmpresa;
+export default NuevaEmpresa;

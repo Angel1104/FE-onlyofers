@@ -109,7 +109,7 @@ const EditarEmpresa = () => {
                             numero_sucursal,
                             direccion_empresa,
                             telefono,
-                            tipo_empresa,
+                            tipo_empresa
                         } 
                     }
                 });

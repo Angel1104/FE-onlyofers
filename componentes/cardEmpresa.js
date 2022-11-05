@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Empresa = ({empresa}) => {
-    const{nopmbre_empresa,numero_sucursal,direccion_empresa,telefono} = producto;
+    const{nopmbre_empresa,numero_sucursal,direccion_empresa,telefono} = empresa;
     return ( 
         <a class="flex flex-col bg-white drop-shadow hover:drop-shadow-lg hover:opacity-70 ">
                 <img src='https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/11/hfpqyV7B-IMG-Dubai-UAE.jpg'
