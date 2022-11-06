@@ -20,7 +20,7 @@ const OBTENER_EMPRESA =gql `
 query Query($obtenerEmpresaId: ID!) {
     obtenerEmpresa(id: $obtenerEmpresaId) {
       nombre_empresa
-      numero_sucural
+      
       direccion_empresa
       telefono
       tipo_empresa
@@ -28,12 +28,15 @@ query Query($obtenerEmpresaId: ID!) {
   }
 `;
 
+
+
 const ACTUALIZAR_EMPRESA=gql`
 mutation ActualizarEmpresa($actualizarEmpresaId: ID!, $input: EmpresaInput) {
     actualizarEmpresa(id: $actualizarEmpresaId, input: $input) {
         nombre_empresa
         numero_sucural
         direccion_empresa
+
         telefono
         tipo_empresa
     }
