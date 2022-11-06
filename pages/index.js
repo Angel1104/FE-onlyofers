@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {useQuery, useMutation,gql} from '@apollo/client';
 import Producto from '../componentes/cardProducto';
+const path = require('path');
 
 const OBTENER_PRODUCTOS = gql`
 query ObtenerProductos {

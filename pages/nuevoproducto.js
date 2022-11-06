@@ -8,7 +8,8 @@ import Swal from 'sweetalert2'
 import ComboEmpresas from '../componentes/ComboEmpresas';
 import ComboProductos from '../componentes/ComboProductos';
 import Router from 'next/router';
-
+import fs from 'fs-extra';
+import cloudinary from 'cloudinary';
 
 
 const NUEVO_PRODUCTO=gql`
@@ -25,6 +26,7 @@ mutation nuevoProducto($input: ProductoInput){
         tipo_producto
         empresa
         estado
+        imagen
     }
   }
 `;
@@ -85,7 +87,6 @@ const NuevoProducto = () => {
     const confirmarAgregarProducto =()=>{
         Swal.fire({
             title: 'Desea Agregar este producto?',
-            
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -94,7 +95,24 @@ const NuevoProducto = () => {
             cancelButtonText: 'No, Cancelar'
           })
     };
-
+    // boton para subir imagen
+    const Subir = () =>{
+        Swal.fire({
+            title: 'Desea subir una imagen del pruducto',
+            text: "Subir una imagen",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'si',
+            cancelButtonText: 'No'
+        }).then(async(result)=>{
+            if (result.isCofirmed){
+                
+            }
+        })
+    };
+// boton cancelar
     const Cancelar =()=>{
         Swal.fire({
             title: 'Desea Cancelar el registro?',
@@ -129,7 +147,8 @@ const NuevoProducto = () => {
             fecha_vencimiento:'',
             estado: 'DISPONIBLE',
             empresa: '',
-            tipo_producto: ''
+            tipo_producto: '',
+            imagen: ''
         },
         validationSchema: Yup.object({
             nombre : Yup.string()
@@ -167,7 +186,7 @@ const NuevoProducto = () => {
                             .required('Se debe seleccionar el tipo de producto')
         }),
         onSubmit: async valores => {
-            const {nombre, descripcion, precio, existencia, fecha_elaboracion,fecha_vencimiento,tipo_producto,empresa,estado} = valores;
+            const {nombre, descripcion, precio, existencia, fecha_elaboracion,fecha_vencimiento,tipo_producto,empresa,estado,imagen} = valores;
             try {
                 const {data} = await nuevoProducto({
                     variables:{
@@ -180,7 +199,8 @@ const NuevoProducto = () => {
                             fecha_vencimiento: fecha_vencimiento,
                             tipo_producto: tipo_producto,
                             empresa: empresa,
-                            estado:estado
+                            estado:estado,
+                            imagen:imagen
                         } 
                     }
                 });
@@ -436,10 +456,25 @@ const NuevoProducto = () => {
                                     </div>
                                 ) : null
                             }
+                            
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="imagen">
+                                Subir una imagen del producto
+                            </label>
+                
+                <form action='/upload' method='POST' encType='multipart/form-data'>
+                    
+                    <button 
+                    type="submit"
+                    className="bg-gray-800 w-full mt-7 p-2 text-white uppercase hover:bg-gray-900"
+                    onClick={()=>Subir()}
+                    >
+                    SUBIR IMAGEN
+                    </button> 
+                </form>    
 
                 <button 
                     type="submit" 
-                    className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
+                    className="bg-gray-800 w-full mt-2 p-2 text-white uppercase hover:bg-gray-900"
                     onClick={()=>confirmarAgregarProducto()}
                     >
                     
