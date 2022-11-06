@@ -42,15 +42,3 @@ export default function Index() {
     </div>
   )
 }
-
-//para empresas
-const OBTENER_EMPRESAS = gql`
-query ObtenerEmpresas {
-  obtenerEmpresas {
-    id
-    nombre_empresa
-    numero_sucursal
-    descripcion_empresa
-    telefono
-  }
-}`
