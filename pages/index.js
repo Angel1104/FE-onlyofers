@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {useQuery, useMutation,gql} from '@apollo/client';
 import Producto from '../componentes/cardProducto';
+//import Empresa from './componentes/cardEmpresa';
 
 const OBTENER_PRODUCTOS = gql`
 query ObtenerProductos {
@@ -28,6 +29,8 @@ export default function Index() {
     <div>
       <Layout>
         <h1 className='text-2xl text-gray-800 font-light mb-4 '>Productos</h1>
+        
+                    
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-x-6 gap-y-10">
             {data.obtenerProductos.map(producto=>(
               <Producto
@@ -37,20 +40,8 @@ export default function Index() {
             ))}
 
     </div>
-
       </Layout>
     </div>
   )
 }
 
-//para empresas
-const OBTENER_EMPRESAS = gql`
-query ObtenerEmpresas {
-  obtenerEmpresas {
-    id
-    nombre_empresa
-    numero_sucursal
-    descripcion_empresa
-    telefono
-  }
-}`
