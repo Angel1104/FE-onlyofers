@@ -16,5 +16,4 @@ const Empresa = ({empresa}) => {
         </a>
     )
 }
- 
 export default Empresa;
