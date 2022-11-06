@@ -40,14 +40,13 @@ export default function Productos() {
       <table className='table-auto shadow-md mt-10 w-full w-lg'>
         <thead className='bg-gray-800'>
           <tr className='text-white'>
-            <th className='w1/8 py-2'>Nombre</th>
-            <th className='w1/8 py-2'>Descripción</th>
-            <th className='w1/8 py-2'>Precio</th>
-            <th className='w1/8 py-2'>Stock</th>
-            <th className='w1/8 py-2'>Fecha Ven</th>
-            <th className='w1/8 py-2'>Estado</th>
-            <th className='w1/8 py-2'>Eliminar</th>
-            <th className='w1/8 py-2'>Editar</th>
+            <th className='w1/7 py-2'>Nombre</th>
+            <th className='w1/7 py-2'>Descripción</th>
+            <th className='w1/7 py-2'>Precio</th>
+            <th className='w1/7 py-2'>Stock</th>
+            <th className='w1/7 py-2'>Estado</th>
+            <th className='w1/7 py-2'>Eliminar</th>
+            <th className='w1/7 py-2'>Editar</th>
           </tr>
         </thead>
         <tbody className='bg-white'>

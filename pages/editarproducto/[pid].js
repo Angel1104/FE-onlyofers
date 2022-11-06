@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import ComboEmpresas from '../../componentes/ComboEmpresas';
 import ComboProductos from '../../componentes/ComboProductos';
+import Router from 'next/router';
+
 
 const OBTENER_EMPRESAS = gql`
 query ObtenerEmpresas {
@@ -86,7 +88,11 @@ const EditarProducto = () => {
         nombre_producto : Yup.string()
                 .required('El Nombre es Obligatorio')
                 .min(3, "El nombre tiene que tener al menos 3 carácteres")
-                .max(50, "El nombre no puede superar los 50 carácteres"),
+                .max(50, "El nombre no puede superar los 50 carácteres")
+                .matches(
+                    /^[aA-zZ\s]+$/,
+                    'No puede usar caracteres especiales'
+                  ),
         existencia : Yup.number()
                     .required('La cantidad del producto es Obligatorio')
                     .positive('No se aceptan numeros negativos o "0"')
@@ -149,6 +155,29 @@ const EditarProducto = () => {
                 console.log(error)
             }
     }
+
+    const Cancelar =()=>{
+        Swal.fire({
+            title: 'Desea Cancelar el registro?',
+            text: "Volvera a pagina productos ",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'si',
+            cancelButtonText: 'No'
+        }).then(async(result) => {
+            if (result.isConfirmed) {
+
+                Router.push({
+                    pathname: "../productos"
+                    
+                })
+
+            }
+          })
+    };
+
     return ( 
         <Layout>
         <h1 className="text-2xl text-gray-800 font-ligth">Editar Producto</h1>
@@ -263,7 +292,7 @@ const EditarProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fecha_elaboracion">
-                                    Fecha de Elaboracion
+                                    Fecha de Elaboración
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -390,6 +419,13 @@ const EditarProducto = () => {
                                 className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
                                 value="Editar Producto"
                             />
+                            <button 
+                            type="submit" 
+                            className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
+                            onClick={()=>Cancelar()}
+                            >
+                                Cancelar
+                            </button>
                 </form>
                     );
                 }}

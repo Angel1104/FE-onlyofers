@@ -43,7 +43,7 @@ const TablaProducto = ({producto}) => {
         }
     });
 
-    const{nombre_producto,descripcion_producto,precio,existencia,fecha_vencimiento,estado,id} = producto;
+    const{nombre_producto,descripcion_producto,precio,existencia,estado,id} = producto;
 
     //eliminar producto
     const confirmarEliminarProducto= id =>{
@@ -93,7 +93,6 @@ const TablaProducto = ({producto}) => {
             <td className='border px-4 py-2'>{descripcion_producto}</td>
             <td className='border px-4 py-2'>{precio} Bs</td>
             <td className='border px-4 py-2'>{existencia}</td>
-            <td className='border px-4 py-2'>{fecha_vencimiento}</td>
             <td className='border px-4 py-2'>{estado}</td>
             <td className='border px-4 py-2'>
                 <button 
