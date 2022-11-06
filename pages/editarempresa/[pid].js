@@ -87,11 +87,10 @@ const EditarEmpresa = () => {
                   .min(3, "La direccion tiene que tener al menos 3 carácteres")
                   .max(150, "La direccion no puede superar los 150 carácteres"),
 
-        telefono : Yup.number()
-                  .required('El  telefono es Obligatorio')
-                  .positive('No se aceptan numeros negativos o "0"')
-                  .max(8)
-                  .min(7),
+        //telefono : Yup.number()
+          //        .required('El  telefono es Obligatorio')
+            //      .positive('No se aceptan numeros negativos o "0"'),
+                  
 
         tipo_empresa: Yup.string()
                         .required('El tipo de empresa es obligaorio')
