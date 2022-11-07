@@ -69,7 +69,7 @@ const NuevaEmpresa = () => {
 
     const confirmarAgregarEmpresa =()=>{
         Swal.fire({
-            title: 'Desea Agregar esta Empresa?',
+            title: '¿Desea Agregar esta Empresa?',
 
             icon: 'question',
             showCancelButton: true,
@@ -256,7 +256,7 @@ const NuevaEmpresa = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="direccion">
-                                    Direccion
+                                    Dirección
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
