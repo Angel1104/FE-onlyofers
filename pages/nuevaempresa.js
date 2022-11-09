@@ -119,7 +119,7 @@ const NuevaEmpresa = () => {
                     .max(50, "El nombre no puede superar los 50 carácteres")
                     .matches(
                         /^[aA-zZ\s]+$/,
-                        'No puede usar caracteres especiales'
+                        'No puede usar caracteres especiales o de tipo númerico'
                       ),
 
             sucursal : Yup.number()

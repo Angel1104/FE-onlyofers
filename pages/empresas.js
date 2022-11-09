@@ -39,6 +39,7 @@ export default function Empresas() {
             <th className='w1/7 py-2'>Sucursal</th>
             <th className='w1/7 py-2'>Direccion</th>
             <th className='w1/7 py-2'>Telefono</th>
+            <th className='w1/7 py-2'>Tipo de Empresa</th>
             <th className='w1/7 py-2'>Eliminar</th>
             <th className='w1/7 py-2'>Editar</th>
           </tr>

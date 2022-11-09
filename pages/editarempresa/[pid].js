@@ -74,7 +74,7 @@ const EditarEmpresa = () => {
                 .max(50, "El nombre no puede superar los 50 carácteres")
                 .matches(
                     /^[aA-zZ\s]+$/,
-                    'No puede usar caracteres especiales'
+                    'El nombre no es válido'
                   ),
 
         numero_sucursal : Yup.number()
