@@ -64,26 +64,26 @@ const TablaEmpresa = ({empresa}) => {
                         }
                     })
                     //mostrar alerta
-                    Swal.fire(
+                   /* Swal.fire(
                         'Eliminado!',
                         data.eliminarEmpresa,
                         'success'
-                      )
+                      )*/
                 } catch (error) {
                     console.log(error)
+                
                 }
-
             }
           })
     };
 
 
-    const editarEmpresa =()=>{
-        Router.push({
-            pathname: "/editarempresa/[id]",
-            query:{id}
-        })
-    };
+    function editarEmpresa() {
+                    Router.push({
+                        pathname: "/editarempresa/[id]",
+                        query: { id }
+                    });
+                }
     return ( 
         <tr>
             <td className='border px-4 py-2'>{nombre_empresa}</td>
