@@ -70,30 +70,33 @@ const EditarEmpresa = () => {
     const schemaValidacion = Yup.object({
         nombre_empresa : Yup.string()
                 .required('El Nombre es Obligatorio')
-                .min(3, "El nombre tiene que tener al menos 3 carácteres")
-                .max(50, "El nombre no puede superar los 50 carácteres")
+                .min(3, "El nombre tiene que tener al menos 3 caracteres")
+                .max(50, "El nombre no puede superar los 50 caracteres")
                 .matches(
                     /^[aA-zZ\s]+$/,
                     'No puede usar caracteres especiales'
                   ),
 
         numero_sucursal : Yup.number()
-                  .required('El Numero de Sucural es obligatorio')
-                  .positive('No se aceptan numeros negativos o "0"')
-                  .integer('La sucursal debe ser en numeros enteros'),
+                  .required('El número de Sucural es obligatorio')
+                  .positive('No se aceptan números negativos o "0"')
+                  .integer('La sucursal debe ser en números enteros'),
 
         direccion_empresa: Yup.string()
-                  .required('La direccion es obligatoria')
-                  .min(3, "La direccion tiene que tener al menos 3 carácteres")
-                  .max(150, "La direccion no puede superar los 150 carácteres"),
+                  .required('La Dirección es Obligatoria')
+                  .min(3, "La Dirección tiene que tener al menos 3 carácteres")
+                  .max(150, "La Dirección no puede superar los 150 carácteres"),
 
-        //telefono : Yup.number()
-          //        .required('El  telefono es Obligatorio')
-            //      .positive('No se aceptan numeros negativos o "0"'),
-                  
+        telefono : Yup.number()
+                  .required('El  número de teléfono es Obligatorio')
+                  .positive('No se aceptan números negativos o "0"')
+                  .max(79999999, "El número de teléfono debe contener entre 7 u 8 dígitos")
+                  .min(1000000, "El número de teléfono debe contener entre 7 u 8 dígitos"),
+                                   
 
         tipo_empresa: Yup.string()
                         .required('El tipo de empresa es obligaorio')
+                        .typeError('El tipo de empresa es obligatorio')
         
     });
     

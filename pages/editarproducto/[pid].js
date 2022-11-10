@@ -99,7 +99,8 @@ const EditarProducto = () => {
                     .integer('la existencia debe ser en numeros enteros'),
         precio : Yup.number()
                     .required('El  precio es Obligatorio')
-                    .positive('No se aceptan numeros negativos o "0"'), 
+                    .positive('No se aceptan numeros negativos o "0"')
+                    .max(10000, 'No se admite insertar montos de dinero imposible'),
         descripcion_producto: Yup.string()
                     .required('La descripcion es obligatoria')
                     .min(3, "La descripcion tiene que tener al menos 3 carácteres")
@@ -118,7 +119,7 @@ const EditarProducto = () => {
                 .required('La empresa es obligatoria'),
         tipo_producto: Yup.string()
                         .required('El tipo de producto es obligaorio')
-        
+                                
     });
     
     

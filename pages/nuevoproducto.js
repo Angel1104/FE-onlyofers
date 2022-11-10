@@ -146,13 +146,15 @@ const NuevoProducto = () => {
                         .integer('la existencia debe ser en numeros enteros'),
             precio : Yup.number()
                         .required('El  precio es Obligatorio')
-                        .positive('No se aceptan numeros negativos o "0"'), 
+                        .positive('No se aceptan numeros negativos o "0"')
+                        .max(10000, 'No se admite insertar montos de dinero imposible'),
             descripcion: Yup.string()
                         .required('La descripcion es obligatoria')
                         .min(3, "La descripcion tiene que tener al menos 3 carácteres")
                         .max(150, "La descripcion no puede superar los 150 carácteres"),
             fecha_elaboracion: Yup.date()
-                            .required('La fecha de elaboracion es obligatoria'),
+                            .required('La fecha de elaboracion es obligatoria')
+                            .min("09/11/2022", 'La fecha de elaboración no puede ser menor a la actual'),
             fecha_vencimiento: Yup.date()
                             .required('La fecha de vencimiento es obligatoria')
                             .min(
