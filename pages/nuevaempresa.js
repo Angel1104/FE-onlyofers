@@ -70,7 +70,6 @@ const NuevaEmpresa = () => {
     const confirmarAgregarEmpresa =()=>{
         Swal.fire({
             title: 'Desea Agregar esta Empresa?',
-
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

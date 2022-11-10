@@ -85,13 +85,13 @@ const NuevoProducto = () => {
     const confirmarAgregarProducto =()=>{
         Swal.fire({
             title: 'Desea Agregar este producto?',
-            
             icon: 'question',
+            showDenyButton: true,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, Agregar',
-            cancelButtonText: 'No, Cancelar'
+            cancelButtonText: 'No, Cancelar',
           })
     };
 
@@ -362,7 +362,7 @@ const NuevoProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="estado">
-                                    Estado del producto
+                                    Estado del Producto
                                 </label>
                                 <select
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -416,7 +416,7 @@ const NuevoProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tipo_producto">
-                                    Tipo de producto
+                                    Tipo de Producto 
                                 </label>
                                 <select
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
