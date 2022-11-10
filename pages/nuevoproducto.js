@@ -85,13 +85,13 @@ const NuevoProducto = () => {
     const confirmarAgregarProducto =()=>{
         Swal.fire({
             title: 'Desea Agregar este producto?',
-            
             icon: 'question',
+            showDenyButton: true,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, Agregar',
-            cancelButtonText: 'No, Cancelar'
+            cancelButtonText: 'No, Cancelar',
           })
     };
 
@@ -148,11 +148,11 @@ const NuevoProducto = () => {
                         .required('El  precio es Obligatorio')
                         .positive('No se aceptan numeros negativos o "0"'), 
             descripcion: Yup.string()
-                        .required('La descripcion es obligatoria')
-                        .min(3, "La descripcion tiene que tener al menos 3 carácteres")
-                        .max(150, "La descripcion no puede superar los 150 carácteres"),
+                        .required('La descripción es obligatoria')
+                        .min(3, "La descripción tiene que tener al menos 3 carácteres")
+                        .max(150, "La descripción no puede superar los 150 carácteres"),
             fecha_elaboracion: Yup.date()
-                            .required('La fecha de elaboracion es obligatoria'),
+                            .required('La fecha de elaboración es obligatoria'), //BUG BRDF-63 ARREGLADO
             fecha_vencimiento: Yup.date()
                             .required('La fecha de vencimiento es obligatoria')
                             .min(
@@ -356,7 +356,7 @@ const NuevoProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="estado">
-                                    Estado del producto
+                                    Estado del Producto
                                 </label>
                                 <select
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -410,7 +410,7 @@ const NuevoProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tipo_producto">
-                                    Tipo de producto
+                                    Tipo de Producto 
                                 </label>
                                 <select
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
