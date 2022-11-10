@@ -11,26 +11,26 @@ import Router from 'next/router';
 
 
 const NUEVA_EMPRESA=gql`
-mutation NuevaEmpresa($input: EmpresaInput) {
+mutation Mutation($input: EmpresaInput) {
     nuevaEmpresa(input: $input) {
-      nombre_empresa
-      numero_sucursal
-      direccion_empresa
-      telefono
-      tipo_empresa
+        nombre_empresa
+        numero_sucursal
+        direccion_empresa
+        telefono
+        tipo_empresa
     }
   }  
 `;
 
 const OBTENER_EMPRESAS= gql`
-query ObtenerEmpresa {
+query Query {
     obtenerEmpresas {
+      direccion_empresa
       id
       nombre_empresa
       numero_sucursal
-      direccion_empresa
-      tipo_empresa
       telefono
+      tipo_empresa
     }
   }
 `;
@@ -38,8 +38,8 @@ query ObtenerEmpresa {
 const OBTENER_TIPO_EMPRESAS = gql`
 query ObtenerTiposEmpresas {
     obtenerTiposEmpresas {
-      id
       tipo_empresa
+      id
     }
   }
 `;
@@ -66,20 +66,6 @@ const NuevaEmpresa = () => {
         }
     }
     );
-
-    const confirmarAgregarEmpresa =()=>{
-        Swal.fire({
-            title: '¿Desea Agregar esta Empresa?',
-
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, Agregar',
-            cancelButtonText: 'No, Cancelar'
-          })
-    };
-
     const Cancelar =()=>{
         Swal.fire({
             title: 'Desea Cancelar el registro?',
@@ -114,55 +100,71 @@ const NuevaEmpresa = () => {
         },
         validationSchema: Yup.object({
             nombre : Yup.string()
-                    .required('El Nombre es Obligatorio')
-                    .min(3, "El nombre tiene que tener al menos 3 carácteres")
-                    .max(50, "El nombre no puede superar los 50 carácteres")
+                    .required('El nombre es Obligatorio')
+                    .trim('El Nombre es Obligatorio')
+                    .min(3, "El nombre tiene que tener al menos 3 caracteres")
+                    .max(50, "El nombre no puede superar los 50 caracteres")
                     .matches(
                         /^[aA-zZ\s]+$/,
                         'No puede usar caracteres especiales o de tipo númerico'
                       ),
 
             sucursal : Yup.number()
-                      .required('El numero de Sucursal es Obligatorio')
-                      .positive('No se aceptan numeros negativos o "0"')
-                      .integer('El numero de Sucursal debe ser en numeros enteros'),
+                      .required('El número de Sucursal es Obligatorio')
+                      .positive('No se aceptan números negativos o "0"')
+                      .integer('El número de Sucursal debe ser en números enteros'),
 
             direccion: Yup.string()
-                      .required('La direccion es obligatoria')
-                      .min(3, "La direccion tiene que tener al menos 3 carácteres")
-                      .max(150, "La direccion no puede superar los 150 carácteres"),
-
+                      .required('La Dirección es Obligatoria') 
+                      .trim('La Dirección es Obligatoria')
+                      .min(3, "La Dirección tiene que tener al menos 3 caracteres")
+                      .max(150, "La Dirección no puede superar los 150 caracteres"),
+                     
             telefono : Yup.number()
-                      .required('El  Telefono es Obligatorio')
-                      .positive('No se aceptan numeros negativos o "0"'),
-                    //   .max(8)
-                    //   .min(6), 
+                      .required('El  número de teléfono es Obligatorio')
+                      .positive('No se aceptan números negativos o "0"')
+                      .test('len', 'Debe tener maximo 8 digitos', val => Math.ceil (Math.log10 (val+1)) === 8),             
 
             tipo_empresa: Yup.string()
-                            .required('Se debe seleccionar el tipo de empresa')
+                            .required('El tipo de empresa es obligaorio')
         }),
         onSubmit: async valores => {
             const {nombre, sucursal, direccion, telefono, tipo_empresa} = valores;
             try {
-                const {data} = await nuevaEmpresa({
-                    variables:{
-                        input : {
-                            nombre_empresa: nombre,
-                            numero_sucursal: sucursal,
-                            direccion_empresa: direccion,
-                            telefono: telefono,
-                            tipo_empresa: tipo_empresa
-                        } 
+                Swal.fire({
+                    title: 'Desea Agregar esta Empresa?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, Agregar',
+                    cancelButtonText: 'No, Cancelar'
+                }).then(async(result) => {
+                    if (result.isConfirmed) {
+        
+                        const {data} = await nuevaEmpresa({
+                            variables:{
+                                input : {
+                                    nombre_empresa: nombre,
+                                    numero_sucursal: sucursal,
+                                    direccion_empresa: direccion,
+                                    telefono: telefono,
+                                    tipo_empresa: tipo_empresa
+                                } 
+                            }
+                        });
+                        //empresa creada correctamente mostrar mensaje
+                        console.log(data)
+                        Swal.fire(
+                            'Creado',
+                            'Creado correctamente',
+                            'success'
+                        )
+                        router.push('/empresas');
+        
                     }
-                });
-                //empresa creada correctamente mostrar mensaje
-                console.log(data)
-                Swal.fire(
-                    'Creado',
-                    'Creado correctamente',
-                    'success'
-                )
-                router.push('/empresas');
+                })
+                
                 
             } catch (error) {
                 console.log(error)
@@ -181,8 +183,8 @@ const NuevaEmpresa = () => {
             <h1 className="text-2xl text-gray-800 font-ligth text-center">Nueva Empresa</h1>
             <div className="flex justify-center mt-5 ">
             <div className="w-full max-w-lg">
+                <div className="bg-white shadow-md px-8 pt-6 pb-8 mb-4">
                 <form
-                    className="bg-white shadow-md px-8 pt-6 pb-8 mb-4"
                     onSubmit={formik.handleSubmit}
                 >
                             <div className="mb-4">
@@ -309,21 +311,19 @@ const NuevaEmpresa = () => {
                 <button 
                     type="submit" 
                     className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
-                    onClick={()=>confirmarAgregarEmpresa()}
                     >
                     
                     AGREGAR NUEVA EMPRESA
                     
                 </button>
-                
+                </form>
                 <button 
-                    type="" 
                     className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                     onClick={()=>Cancelar()}
                     >
                     Cancelar    
                 </button>
-                </form>
+                </div>
             </div>
         </div>
         </Layout>

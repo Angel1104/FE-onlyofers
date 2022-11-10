@@ -70,30 +70,34 @@ const EditarEmpresa = () => {
     const schemaValidacion = Yup.object({
         nombre_empresa : Yup.string()
                 .required('El Nombre es Obligatorio')
-                .min(3, "El nombre tiene que tener al menos 3 carácteres")
-                .max(50, "El nombre no puede superar los 50 carácteres")
+                .trim('El Nombre es Obligatorio')
+                .min(3, "El nombre tiene que tener al menos 3 caracteres")
+                .max(50, "El nombre no puede superar los 50 caracteres")
                 .matches(
                     /^[aA-zZ\s]+$/,
                     'El nombre no es válido'
                   ),
 
         numero_sucursal : Yup.number()
-                  .required('El Numero de Sucural es obligatorio')
-                  .positive('No se aceptan numeros negativos o "0"')
-                  .integer('La sucursal debe ser en numeros enteros'),
+                  .required('El número de Sucural es obligatorio')
+                  .positive('No se aceptan números negativos o "0"')
+                  .integer('La sucursal debe ser en números enteros'),
 
         direccion_empresa: Yup.string()
-                  .required('La direccion es obligatoria')
-                  .min(3, "La direccion tiene que tener al menos 3 carácteres")
-                  .max(150, "La direccion no puede superar los 150 carácteres"),
+                  .required('La Dirección es Obligatoria')
+                  .trim('La Dirección es Obligatoria')
+                  .min(3, "La Dirección tiene que tener al menos 3 caracteres")
+                  .max(150, "La Dirección no puede superar los 150 caracteres"),
 
-        //telefono : Yup.number()
-          //        .required('El  telefono es Obligatorio')
-            //      .positive('No se aceptan numeros negativos o "0"'),
-                  
+        telefono : Yup.number()
+                  .required('El  número de teléfono es Obligatorio')
+                  .positive('No se aceptan números negativos o "0"')
+                  .test('len', 'Debe tener maximo 8 digitos', val => Math.ceil (Math.log10 (val+1)) === 8),  
+                                   
 
         tipo_empresa: Yup.string()
                         .required('El tipo de empresa es obligaorio')
+                        .typeError('El tipo de empresa es obligatorio')
         
     });
     
@@ -295,14 +299,15 @@ const EditarEmpresa = () => {
                                 className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
                                 value="Editar Empresa"
                             />
-                            <button 
-                            type="submit" 
+                          <button 
+                            type="" 
                             className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                             onClick={()=>Cancelar()}
                             >
                                 Cancelar
-                            </button>
+                            </button>  
                 </form>
+                
                     );
                 }}
                 </Formik>
