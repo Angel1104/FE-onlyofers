@@ -87,6 +87,7 @@ const EditarProducto = () => {
     const schemaValidacion = Yup.object({
         nombre_producto : Yup.string()
                 .required('El Nombre es Obligatorio')
+                .trim('El Nombre es Obligatorio')
                 .min(3, "El nombre tiene que tener al menos 3 carácteres")
                 .max(50, "El nombre no puede superar los 50 carácteres")
                 .matches(
@@ -102,9 +103,10 @@ const EditarProducto = () => {
                     .positive('No se aceptan numeros negativos o "0"')
                     .max(10000, 'No se admite insertar montos de dinero imposible'),
         descripcion_producto: Yup.string()
-                    .required('La descripcion es obligatoria')
-                    .min(3, "La descripcion tiene que tener al menos 3 carácteres")
-                    .max(150, "La descripcion no puede superar los 150 carácteres"),
+                    .required('La descripción es obligatoria')
+                    .trim('La descripción es obligatoria')
+                    .min(3, "La descripción tiene que tener al menos 3 caracteres")
+                    .max(150, "La descripción no puede superar los 150 caracteres"),
         fecha_elaboracion: Yup.date()
                     .required('La fecha de elaboración es obligatoria')
                     .max('11-10-2022', 'La fecha de elaboración no debe ser antes de la fecha actual')

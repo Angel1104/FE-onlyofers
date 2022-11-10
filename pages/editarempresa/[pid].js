@@ -70,6 +70,7 @@ const EditarEmpresa = () => {
     const schemaValidacion = Yup.object({
         nombre_empresa : Yup.string()
                 .required('El Nombre es Obligatorio')
+                .trim('El Nombre es Obligatorio')
                 .min(3, "El nombre tiene que tener al menos 3 caracteres")
                 .max(50, "El nombre no puede superar los 50 caracteres")
                 .matches(
@@ -84,14 +85,14 @@ const EditarEmpresa = () => {
 
         direccion_empresa: Yup.string()
                   .required('La Dirección es Obligatoria')
-                  .min(3, "La Dirección tiene que tener al menos 3 carácteres")
-                  .max(150, "La Dirección no puede superar los 150 carácteres"),
+                  .trim('La Dirección es Obligatoria')
+                  .min(3, "La Dirección tiene que tener al menos 3 caracteres")
+                  .max(150, "La Dirección no puede superar los 150 caracteres"),
 
         telefono : Yup.number()
                   .required('El  número de teléfono es Obligatorio')
                   .positive('No se aceptan números negativos o "0"')
-                  .max(79999999, "El número de teléfono debe contener entre 7 u 8 dígitos")
-                  .min(1000000, "El número de teléfono debe contener entre 7 u 8 dígitos"),
+                  .test('len', 'Debe tener maximo 8 digitos', val => Math.ceil (Math.log10 (val+1)) === 8),  
                                    
 
         tipo_empresa: Yup.string()
