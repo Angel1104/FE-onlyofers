@@ -426,7 +426,7 @@ const EditarProducto = () => {
                                 value="Editar Producto"
                             />
                             <button 
-                            type="submit" 
+                            type="" 
                             className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                             onClick={()=>Cancelar()}
                             >

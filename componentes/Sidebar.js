@@ -13,7 +13,7 @@ const Sidebar = () => {
                     <p className='text-white text-2xl font-black'>OnlyOfers</p>
                 </div>
                 <nav className='mt-5 list-none '>
-                    <li className={router.pathname === "/" ? "bg-blue-800 p-2" : "p-2"}>
+                    <li className={router.pathname === "/" || "/empresa" ? "bg-blue-800 p-2" : "p-2"}>
                     <Link href="/">
                         <a className='text-white block'>
                             Home

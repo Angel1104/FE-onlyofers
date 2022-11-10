@@ -299,14 +299,15 @@ const EditarEmpresa = () => {
                                 className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
                                 value="Editar Empresa"
                             />
-                            <button 
-                            type="submit" 
+                          <button 
+                            type="" 
                             className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                             onClick={()=>Cancelar()}
                             >
                                 Cancelar
-                            </button>
+                            </button>  
                 </form>
+                
                     );
                 }}
                 </Formik>

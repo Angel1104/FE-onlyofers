@@ -220,8 +220,9 @@ const NuevoProducto = () => {
             <h1 className="text-2xl text-gray-800 font-ligth text-center">Nuevo Producto</h1>
             <div className="flex justify-center mt-5 ">
             <div className="w-full max-w-lg">
+                <div  className="bg-white shadow-md px-8 pt-6 pb-8 mb-4">
                 <form
-                    className="bg-white shadow-md px-8 pt-6 pb-8 mb-4"
+                   
                     onSubmit={formik.handleSubmit}
                 >
                             <div className="mb-4">
@@ -452,15 +453,15 @@ const NuevoProducto = () => {
                     AGREGAR NUEVO PRODUCTO
                     
                 </button>
-                
+                </form>
                 <button 
-                    type="submit" 
+                    type="" 
                     className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                     onClick={()=>Cancelar()}
                     >
                     Cancelar    
                 </button>
-                </form>
+                </div>
             </div>
         </div>
         </Layout>
