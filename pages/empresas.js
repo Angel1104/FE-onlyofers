@@ -37,8 +37,9 @@ export default function Empresas() {
           <tr className='text-white'>
             <th className='w1/7 py-2'>Nombre</th>
             <th className='w1/7 py-2'>Sucursal</th>
-            <th className='w1/7 py-2'>Dirección</th>  
-            <th className='w1/7 py-2'>Teléfono</th>
+            <th className='w1/7 py-2'>Direccion</th>
+            <th className='w1/7 py-2'>Telefono</th>
+            <th className='w1/7 py-2'>Tipo de Empresa</th>
             <th className='w1/7 py-2'>Eliminar</th>
             <th className='w1/7 py-2'>Editar</th>
           </tr>

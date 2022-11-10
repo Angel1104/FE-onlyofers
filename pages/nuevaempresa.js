@@ -66,7 +66,6 @@ const NuevaEmpresa = () => {
         }
     }
     );
-
     const Cancelar =()=>{
         Swal.fire({
             title: 'Desea Cancelar el registro?',
@@ -107,7 +106,7 @@ const NuevaEmpresa = () => {
                     .max(50, "El nombre no puede superar los 50 caracteres")
                     .matches(
                         /^[aA-zZ\s]+$/,
-                        'No puede usar caracteres especiales'
+                        'No puede usar caracteres especiales o de tipo númerico'
                       ),
 
             sucursal : Yup.number()
@@ -259,7 +258,7 @@ const NuevaEmpresa = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="direccion">
-                                    Direccion
+                                    Dirección
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

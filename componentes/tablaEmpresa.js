@@ -40,13 +40,13 @@ const TablaEmpresa = ({empresa}) => {
         }
     });
 
-    const{nombre_empresa,numero_sucursal,direccion_empresa,telefono,id} = empresa;
+    const{nombre_empresa,numero_sucursal,direccion_empresa,telefono,tipo_empresa, id} = empresa;
 
     //eliminar empresa
     const confirmarEliminarEmpresa= id =>{
         Swal.fire({
             title: 'Desea eliminar esta empresa?',
-            text: "Esta accion no se puede deshacer!",
+            text: "Esta acción no se puede deshacer!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -90,6 +90,7 @@ const TablaEmpresa = ({empresa}) => {
             <td className='border px-4 py-2'>{numero_sucursal}</td>
             <td className='border px-4 py-2'>{direccion_empresa} </td>
             <td className='border px-4 py-2'>{telefono}</td>
+            <td className='border px-4 py-2'>{tipo_empresa}</td>
             <td className='border px-4 py-2'>
                 <button 
                     type="button" 
