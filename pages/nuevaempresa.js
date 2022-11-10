@@ -11,26 +11,26 @@ import Router from 'next/router';
 
 
 const NUEVA_EMPRESA=gql`
-mutation NuevaEmpresa($input: EmpresaInput) {
+mutation Mutation($input: EmpresaInput) {
     nuevaEmpresa(input: $input) {
-      nombre_empresa
-      numero_sucursal
-      direccion_empresa
-      telefono
-      tipo_empresa
+        nombre_empresa
+        numero_sucursal
+        direccion_empresa
+        telefono
+        tipo_empresa
     }
   }  
 `;
 
 const OBTENER_EMPRESAS= gql`
-query ObtenerEmpresa {
+query Query {
     obtenerEmpresas {
+      direccion_empresa
       id
       nombre_empresa
       numero_sucursal
-      direccion_empresa
-      tipo_empresa
       telefono
+      tipo_empresa
     }
   }
 `;
@@ -38,8 +38,8 @@ query ObtenerEmpresa {
 const OBTENER_TIPO_EMPRESAS = gql`
 query ObtenerTiposEmpresas {
     obtenerTiposEmpresas {
-      id
       tipo_empresa
+      id
     }
   }
 `;
@@ -66,19 +66,6 @@ const NuevaEmpresa = () => {
         }
     }
     );
-
-    const confirmarAgregarEmpresa =()=>{
-        Swal.fire({
-            title: 'Desea Agregar esta Empresa?',
-
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, Agregar',
-            cancelButtonText: 'No, Cancelar'
-          })
-    };
 
     const Cancelar =()=>{
         Swal.fire({
@@ -144,25 +131,40 @@ const NuevaEmpresa = () => {
         onSubmit: async valores => {
             const {nombre, sucursal, direccion, telefono, tipo_empresa} = valores;
             try {
-                const {data} = await nuevaEmpresa({
-                    variables:{
-                        input : {
-                            nombre_empresa: nombre,
-                            numero_sucursal: sucursal,
-                            direccion_empresa: direccion,
-                            telefono: telefono,
-                            tipo_empresa: tipo_empresa
-                        } 
+                Swal.fire({
+                    title: 'Desea Agregar esta Empresa?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, Agregar',
+                    cancelButtonText: 'No, Cancelar'
+                }).then(async(result) => {
+                    if (result.isConfirmed) {
+        
+                        const {data} = await nuevaEmpresa({
+                            variables:{
+                                input : {
+                                    nombre_empresa: nombre,
+                                    numero_sucursal: sucursal,
+                                    direccion_empresa: direccion,
+                                    telefono: telefono,
+                                    tipo_empresa: tipo_empresa
+                                } 
+                            }
+                        });
+                        //empresa creada correctamente mostrar mensaje
+                        console.log(data)
+                        Swal.fire(
+                            'Creado',
+                            'Creado correctamente',
+                            'success'
+                        )
+                        router.push('/empresas');
+        
                     }
-                });
-                //empresa creada correctamente mostrar mensaje
-                console.log(data)
-                Swal.fire(
-                    'Creado',
-                    'Creado correctamente',
-                    'success'
-                )
-                router.push('/empresas');
+                })
+                
                 
             } catch (error) {
                 console.log(error)
@@ -181,8 +183,8 @@ const NuevaEmpresa = () => {
             <h1 className="text-2xl text-gray-800 font-ligth text-center">Nueva Empresa</h1>
             <div className="flex justify-center mt-5 ">
             <div className="w-full max-w-lg">
+                <div className="bg-white shadow-md px-8 pt-6 pb-8 mb-4">
                 <form
-                    className="bg-white shadow-md px-8 pt-6 pb-8 mb-4"
                     onSubmit={formik.handleSubmit}
                 >
                             <div className="mb-4">
@@ -309,21 +311,19 @@ const NuevaEmpresa = () => {
                 <button 
                     type="submit" 
                     className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
-                    onClick={()=>confirmarAgregarEmpresa()}
                     >
                     
                     AGREGAR NUEVA EMPRESA
                     
                 </button>
-                
+                </form>
                 <button 
-                    type="" 
                     className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                     onClick={()=>Cancelar()}
                     >
                     Cancelar    
                 </button>
-                </form>
+                </div>
             </div>
         </div>
         </Layout>
