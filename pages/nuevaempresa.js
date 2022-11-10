@@ -70,7 +70,6 @@ const NuevaEmpresa = () => {
     const confirmarAgregarEmpresa =()=>{
         Swal.fire({
             title: 'Desea Agregar esta Empresa?',
-
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -124,8 +123,8 @@ const NuevaEmpresa = () => {
 
             sucursal : Yup.number()
                       .required('El numero de Sucursal es Obligatorio')
-                      .positive('No se aceptan numeros negativos o "0"')
-                      .integer('El numero de Sucursal debe ser en numeros enteros'),
+                      .positive('No se aceptan números negativos') //bug BRDF-52 arreglado
+                      .integer('El número de sucursal debe ser en números enteros'), // bug BRDF-53 arreglado
 
             direccion: Yup.string()
                       .required('La direccion es obligatoria')
