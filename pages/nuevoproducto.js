@@ -134,6 +134,7 @@ const NuevoProducto = () => {
         validationSchema: Yup.object({
             nombre : Yup.string()
                     .required('El Nombre es Obligatorio')
+                    .trim('El Nombre es Obligatorio')
                     .min(3, "El nombre tiene que tener al menos 3 carácteres")
                     .max(50, "El nombre no puede superar los 50 carácteres")
                     .matches(
@@ -146,19 +147,24 @@ const NuevoProducto = () => {
                         .integer('la existencia debe ser en numeros enteros'),
             precio : Yup.number()
                         .required('El  precio es Obligatorio')
-                        .positive('No se aceptan numeros negativos o "0"'), 
+                        .positive('No se aceptan numeros negativos o "0"')
+                        .max(10000, 'No se admite insertar montos de dinero imposible'),
             descripcion: Yup.string()
                         .required('La descripción es obligatoria')
-                        .min(3, "La descripción tiene que tener al menos 3 carácteres")
-                        .max(150, "La descripción no puede superar los 150 carácteres"),
+                        .trim('La descripción es obligatoria')
+                        .min(3, "La descripción tiene que tener al menos 3 caracteres")
+                        .max(150, "La descripción no puede superar los 150 caracteres"),
             fecha_elaboracion: Yup.date()
-                            .required('La fecha de elaboración es obligatoria'), //BUG BRDF-63 ARREGLADO
+                            .required('La fecha de elaboración es obligatoria')
+                            .max('11-10-2022', 'La fecha de elaboración no debe ser antes de la fecha actual')
+                            .min('11-10-2018', 'La fecha de elaboración no puede ser menos a los cuatro años'),
             fecha_vencimiento: Yup.date()
                             .required('La fecha de vencimiento es obligatoria')
                             .min(
                                 Yup.ref("fecha_elaboracion"),
-                                "La fecha de vencimiento debe ser despues de la de elaboración"
-                            ),
+                                "La fecha de vencimiento debe ser despúes de la fecha de elaboración"
+                            )
+                            .max('11-10-2028', 'La fecha de vencimiento no debe ser mayor a los cuatro años'),
             estado: Yup.string()
                     .required('Estado obligatorio'),
             empresa: Yup.string()
