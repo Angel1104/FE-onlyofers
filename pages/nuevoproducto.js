@@ -117,6 +117,24 @@ const NuevoProducto = () => {
           })
     };
 
+    const fecha = () => {
+        var fechaHoy
+        let date = new Date()
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+
+        if(month < 10){
+            fechaHoy =(`0${month}-${day}-${year}`)
+        }else{
+            fechaHoy =(`${month}-${day}-${year}`)
+        }
+        console.log(fechaHoy)
+        
+        return ( fechaHoy );
+    }
+
+
     
 //form para new product
     const formik = useFormik({

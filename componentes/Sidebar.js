@@ -11,10 +11,8 @@ const Sidebar = () => {
     const home = () => {
         var resh;
         if ( path === "/" || path === "/empresa") {
-            console.log(path)
             resh = true
         } else {
-            console.log(path)
             resh = false
         }
         return resh
@@ -22,10 +20,8 @@ const Sidebar = () => {
     const producto = () => {
         var resp;
         if ( path === "/productos" || path === "/nuevoproducto") {
-            console.log(path)
             resp = true
         } else {
-            console.log(path)
             resp = false
         }
         return resp
@@ -33,10 +29,8 @@ const Sidebar = () => {
     const empresa = () => {
         var rese;
         if ( path === "/empresas" || path === "/nuevaempresa") {
-            console.log(path)
             rese = true
         } else {
-            console.log(path)
             rese = false
         }
         return rese
@@ -51,7 +45,6 @@ const Sidebar = () => {
                 </div>
                 <nav className='mt-5 list-none '>
                     <li className={home() ? "bg-blue-800 p-2" : "p-2"}>
-                    {console.log(home())}
                     <Link href="/">
                         <a className='text-white block'>
                             Home
