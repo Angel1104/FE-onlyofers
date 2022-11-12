@@ -20,7 +20,7 @@ const OBTENER_EMPRESA =gql `
 query Query($obtenerEmpresaId: ID!) {
     obtenerEmpresa(id: $obtenerEmpresaId) {
       nombre_empresa
-      
+      numero_sucursal
       direccion_empresa
       telefono
       tipo_empresa
@@ -33,10 +33,9 @@ query Query($obtenerEmpresaId: ID!) {
 const ACTUALIZAR_EMPRESA=gql`
 mutation ActualizarEmpresa($actualizarEmpresaId: ID!, $input: EmpresaInput) {
     actualizarEmpresa(id: $actualizarEmpresaId, input: $input) {
-        nombre_empresa
-        numero_sucural
         direccion_empresa
-
+        nombre_empresa
+        numero_sucursal
         telefono
         tipo_empresa
     }
@@ -298,6 +297,7 @@ const EditarEmpresa = () => {
                                 type="submit"
                                 className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
                                 value="Editar Empresa"
+                                
                             />
                           <button 
                             type="" 
