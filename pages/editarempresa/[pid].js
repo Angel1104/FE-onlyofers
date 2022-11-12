@@ -79,8 +79,8 @@ const EditarEmpresa = () => {
 
         numero_sucursal : Yup.number()
                   .required('El número de Sucural es obligatorio')
-                  .positive('No se aceptan números negativos o "0"')
-                  .integer('La sucursal debe ser en números enteros'),
+                  .moreThan(-1, 'No se aceptan números negativos')
+                  .integer('El número de sucursal debe ser en números enteros'),
 
         direccion_empresa: Yup.string()
                   .required('La Dirección es Obligatoria')
@@ -89,9 +89,9 @@ const EditarEmpresa = () => {
                   .max(150, "La Dirección no puede superar los 150 caracteres"),
 
         telefono : Yup.number()
-                  .required('El  número de teléfono es Obligatorio')
-                  .positive('No se aceptan números negativos o "0"')
-                  .test('len', 'Debe tener maximo 8 digitos', val => Math.ceil (Math.log10 (val+1)) === 8),  
+                  .required('El  Teléfono es Obligatorio')
+                  .positive('No se aceptan números negativos')
+                  .test('len', 'El número de teléfono solo tiene 7 caracteres', val => Math.ceil (Math.log10 (val+1)) === 7),  
                                    
 
         tipo_empresa: Yup.string()

@@ -45,8 +45,8 @@ const TablaEmpresa = ({empresa}) => {
     //eliminar empresa
     const confirmarEliminarEmpresa= id =>{
         Swal.fire({
-            title: 'Desea eliminar esta empresa?',
-            text: "Esta acción no se puede deshacer!",
+            title: '¿Desea eliminar esta empresa?',
+            text: "¡Esta acción no se puede deshacer!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

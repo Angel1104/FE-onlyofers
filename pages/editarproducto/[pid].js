@@ -109,15 +109,15 @@ const EditarProducto = () => {
                     .max(150, "La descripción no puede superar los 150 caracteres"),
         fecha_elaboracion: Yup.date()
                     .required('La fecha de elaboración es obligatoria')
-                    .max('11-10-2022', 'La fecha de elaboración no debe ser antes de la fecha actual')
-                    .min('11-10-2018', 'La fecha de elaboración no puede ser menos a los cuatro años'),
+                    .max('11-11-2022', 'La fecha de elaboración no debe ser antes de la fecha actual')
+                    .min('11-11-2018', 'La fecha de elaboración no puede ser menos a los cuatro años'),
         fecha_vencimiento: Yup.date()
                     .required('La fecha de vencimiento es obligatoria')
                     .min(
                         Yup.ref("fecha_elaboracion"),
                         "La fecha de vencimiento debe ser despúes de la fecha de elaboración"
                     )
-                    .max('11-10-2028', 'La fecha de vencimiento no debe ser mayor a los cuatro años'),
+                    .max('11-11-2028', 'La fecha de vencimiento no debe ser mayor a los cuatro años'),
         estado: Yup.string()
                 .required('Estado obligatorio'),
         empresa: Yup.string()

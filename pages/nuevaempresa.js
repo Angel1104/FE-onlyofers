@@ -68,7 +68,7 @@ const NuevaEmpresa = () => {
     );
     const Cancelar =()=>{
         Swal.fire({
-            title: 'Desea Cancelar el registro?',
+            title: '¿Desea Cancelar el registro?',
             text: "Volvera a pagina empresas ",
             icon: 'question',
             showCancelButton: true,
@@ -111,7 +111,7 @@ const NuevaEmpresa = () => {
 
             sucursal : Yup.number()
                       .required('El número de Sucursal es Obligatorio')
-                      .positive('No se aceptan números negativos o "0"')
+                     .moreThan(-1, 'No se aceptan números negativos')
                       .integer('El número de Sucursal debe ser en números enteros'),
 
             direccion: Yup.string()
@@ -121,9 +121,9 @@ const NuevaEmpresa = () => {
                       .max(150, "La Dirección no puede superar los 150 caracteres"),
                      
             telefono : Yup.number()
-                      .required('El  número de teléfono es Obligatorio')
-                      .positive('No se aceptan números negativos o "0"')
-                      .test('len', 'Debe tener maximo 8 digitos', val => Math.ceil (Math.log10 (val+1)) === 8),             
+                      .required('El  Teléfono es Obligatorio')
+                      .positive('No se aceptan números negativos')
+                      .test('len', 'El número de teléfono solo tiene 7 caracteres', val => Math.ceil (Math.log10 (val+1)) === 7),             
 
             tipo_empresa: Yup.string()
                             .required('El tipo de empresa es obligaorio')
@@ -132,7 +132,7 @@ const NuevaEmpresa = () => {
             const {nombre, sucursal, direccion, telefono, tipo_empresa} = valores;
             try {
                 Swal.fire({
-                    title: 'Desea Agregar esta Empresa?',
+                    title: '¿Desea Agregar esta Empresa?',
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
