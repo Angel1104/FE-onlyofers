@@ -91,7 +91,7 @@ const EditarProducto = () => {
                 .max(50, "El nombre no puede superar los 50 carácteres")
                 .matches(
                     /^[aA-zZ\s]+$/,
-                    'No puede usar caracteres especiales'
+                    'No se admite caracteres de tipo numérico'
                   ),
         existencia : Yup.number()
                     .required('La cantidad del producto es Obligatorio')
