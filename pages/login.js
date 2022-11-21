@@ -14,7 +14,7 @@ const Login = () => {
                             className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4">
 
                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nombre">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                                     Email
 
                                 </label>
