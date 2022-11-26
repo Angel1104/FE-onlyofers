@@ -8,24 +8,26 @@ import {useMutation,gql, useQuery} from '@apollo/client';
 
 
 
-const vendedors=gql`
+const NUEVO_VENDEDOR=gql`
 mutation NuevoVendedor($input: VendedorInput) {
     nuevoVendedor(input: $input) {
-      NIT
-      apellido_vendedor
-      contrasenia_vendedor
-      correo_vendedor
-      nombre_vendedor
+        nombre_vendedor
+        apellido_vendedor
+        contrasenia_vendedor
+        correo_vendedor
+        NIT
     }
   }
 `;
-const obtener_vendedors = gql`
-query ObtenerVendedor($correoVendedor: String!) {
-    obtenerVendedor(correo_vendedor: $correoVendedor) {
-      NIT
+
+const OBTENER_VENDEDORES=gql`
+query Query {
+    obtenerVendedores {
       apellido_vendedor
+      NIT
       contrasenia_vendedor
       correo_vendedor
+      id
       nombre_vendedor
     }
   }
@@ -33,26 +35,13 @@ query ObtenerVendedor($correoVendedor: String!) {
 
 const NuevoVendedor = () => {
 
+    //routing
     const router = useRouter();
 
 
     //mutation para crear producto
-    const  [NuevoVendedor]= useMutation(vendedors
-        , {
-        update(cache, { data:{nuevoVendedor}}){
-            // obtener el objeto de cache que deseamos actualizar
-            const { obtenerVendedor} = cache.readQuery({ query: obtener_vendedors});
+    const  [nuevoVendedor]= useMutation(NUEVO_VENDEDOR);
 
-            // reeescriibr el cache( el cache nunca se debe modificar se reescribe)
-            cache.writeQuery({
-                query: obtener_vendedors,
-                data:{
-                    obtenerVendedor : [...obtenerVendedor , nuevoVendedor]
-                }
-            })
-        }
-    }
-    );
 
 //validacion del formulario
 const formik = useFormik({
@@ -111,7 +100,7 @@ const formik = useFormik({
     onSubmit: async valores => {
         const {NIT, apellido_vendedor, contrasenia_vendedor, correo_vendedor,nombre_vendedor } = valores;
         try {
-            const {data} = await NuevoVendedor({
+            const {data} = await nuevoVendedor({
                 variables:{
                     input : {
                         nombre_vendedor: nombre_vendedor,
@@ -122,14 +111,14 @@ const formik = useFormik({
                     } 
                 }
             });
-            //producto creado correctamente mostrar mensaje
+            //vendedor creado correctamente mostrar mensaje
             console.log(data)
             Swal.fire(
                 'Creado',
                 'Creado correctamente',
                 'success'
             )
-            router.push('/productos');
+            router.push('/');
             
         } catch (error) {
             console.log(error)
