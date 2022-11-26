@@ -2,6 +2,7 @@ import React from 'react'
 import Link  from "next/link";
 import {useRouter} from 'next/router';
 
+
 const Sidebar = () => {
 
     //routing de next
@@ -36,6 +37,15 @@ const Sidebar = () => {
                     </Link>
                     </li>
 
+                    <li className={router.pathname === "/login" ? "bg-blue-800 p-2" : "p-2"}>
+                    <Link href="/login">
+                    <a className='text-white block'>
+                        Iniciar Sesion
+                    </a>
+                    </Link>
+                    </li>
+
+                    
                 </nav>
             </aside>
         </>

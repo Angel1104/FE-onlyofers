@@ -1,12 +1,18 @@
 import React from 'react';
 import Layout from '../componentes/Layout';
+import Swal from 'sweetalert2';
+import Router from 'next/router';
+import Link  from "next/link";
 
 const Login = () => {
+
+    
+
     return(
 
         <>
             <Layout>
-                <h1 className="text-center text-2x1 text-white font-light">Login</h1>
+                <h1 className="text-center text-2x1 text-blue font-light">Login</h1>
 
                 <div className="flex justify-center mt-5">
                     <div className="w-full max-w-sm">
@@ -50,7 +56,23 @@ const Login = () => {
 
                             />
                             
+                            
+
                             </form>
+
+                            <Link href="/nuevacuenta">
+                            <a className='text-blue block'>
+                                Registrarse
+                            </a>
+                            </Link>
+
+                            <div className="mb-4"/>
+
+                            <Link href="/nuevovendedor">
+                            <a className='text-blue block'>
+                                Registrar Vendedor
+                            </a>
+                            </Link>
 
                     </div>
                 </div>

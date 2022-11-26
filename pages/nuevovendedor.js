@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import Router from 'next/router';
 
-const NuevaCuenta = () => {
+const NuevoVendedor = () => {
 
 //validacion del formulario
 const formik = useFormik({
@@ -14,7 +14,8 @@ const formik = useFormik({
         apellido: '',
         email: '',
         contrasena: '',
-        repetir_contrasena: ''
+        repetir_contrasena: '',
+        Nit: ''
     },
     validationSchema: Yup.object({
         nombre : Yup.string()
@@ -47,8 +48,13 @@ const formik = useFormik({
         repetir_contrasena : Yup.string()
         .required('El contrasena es obligatorio')
         .min(8, "El contrasena tiene que tener al menos 8 caracteres")
-        .oneOf([Yup.ref('contrasena'), null], 'Las contraseñas deben ser iguales')
+        .oneOf([Yup.ref('contrasena'), null], 'Las contraseñas deben ser iguales'),
 
+        Nit : Yup.number()
+                        .required('La cantidad existente es Obligatorio')
+                        .positive('No se aceptan numeros negativos o "0"')
+                        .integer('la existencia debe ser en numeros enteros')
+                        .test('len', 'Debe tener 14 digitos', val => Math.ceil (Math.log10 (val+1)) === 14),   
     }),
     onSubmit: valores => {
         console.log('enviando');
@@ -231,6 +237,29 @@ const Cancelar =()=>{
                                 ) : null
                             }
 
+<div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Nit">
+                                    Nit
+                                </label>
+                                <input
+                                    className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="Nit"
+                                    type="number"
+                                    placeholder="Nit"
+                                    value={formik.values.Nit}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+                            </div>
+                            {
+                                formik.touched.Nit && formik.errors.Nit ? (
+                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                                        <p className="font-bold">Error</p>
+                                        <p>{formik.errors.Nit}</p>
+                                    </div>
+                                ) : null
+                            }
+
                            <input
                                 type="submit"
                                 className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:bg-gray-900"
@@ -253,4 +282,4 @@ const Cancelar =()=>{
     );
 }
 
-export default NuevaCuenta;
+export default NuevoVendedor;
