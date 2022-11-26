@@ -3,22 +3,69 @@ import Layout from '../componentes/Layout';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
+import {useMutation,gql, useQuery} from '@apollo/client';
+
+
+
+const vendedors=gql`
+mutation NuevoVendedor($input: VendedorInput) {
+    nuevoVendedor(input: $input) {
+      NIT
+      apellido_vendedor
+      contrasenia_vendedor
+      correo_vendedor
+      nombre_vendedor
+    }
+  }
+`;
+const obtener_vendedors = gql`
+query ObtenerVendedor($correoVendedor: String!) {
+    obtenerVendedor(correo_vendedor: $correoVendedor) {
+      NIT
+      apellido_vendedor
+      contrasenia_vendedor
+      correo_vendedor
+      nombre_vendedor
+    }
+  }
+`;
 
 const NuevoVendedor = () => {
+
+    const router = useRouter();
+
+
+    //mutation para crear producto
+    const  [NuevoVendedor]= useMutation(vendedors
+        , {
+        update(cache, { data:{nuevoVendedor}}){
+            // obtener el objeto de cache que deseamos actualizar
+            const { obtenerVendedor} = cache.readQuery({ query: obtener_vendedors});
+
+            // reeescriibr el cache( el cache nunca se debe modificar se reescribe)
+            cache.writeQuery({
+                query: obtener_vendedors,
+                data:{
+                    obtenerVendedor : [...obtenerVendedor , nuevoVendedor]
+                }
+            })
+        }
+    }
+    );
 
 //validacion del formulario
 const formik = useFormik({
     initialValues:{
-        nombre: '',
-        apellido: '',
-        email: '',
-        contrasena: '',
+        nombre_vendedor: '',
+        apellido_vendedor: '',
+        correo_vendedor: '',
+        contrasenia_vendedor: '',
         repetir_contrasena: '',
-        Nit: ''
+        NIT: ''
     },
     validationSchema: Yup.object({
-        nombre : Yup.string()
+        nombre_vendedor : Yup.string()
                     .required('El nombre es Obligatorio')
                     .trim('El Nombre es Obligatorio')
                     .min(3, "El nombre tiene que tener al menos 3 caracteres")
@@ -27,7 +74,7 @@ const formik = useFormik({
                         /^[aA-zZ\s]+$/,
                         'No puede usar caracteres especiales o de tipo númerico'
                       ),
-        apellido : Yup.string()
+        apellido_vendedor : Yup.string()
                     .required('El Apellido es Obligatorio')
                     .trim('El Apellido es Obligatorio')
                     .min(3, "El apellido tiene que tener al menos 3 caracteres")
@@ -37,20 +84,20 @@ const formik = useFormik({
                         'No puede usar caracteres especiales o de tipo númerico'
                     ),
 
-        email : Yup.string()
+        correo_vendedor : Yup.string()
         .email('El email no es valido')
         .required('El email es obligatorio'),
 
-        contrasena : Yup.string()
+        contrasenia_vendedor : Yup.string()
         .required('El contrasena es obligatorio')
         .min(8, "El contrasena tiene que tener al menos 8 caracteres"),
 
         repetir_contrasena : Yup.string()
         .required('El contrasena es obligatorio')
         .min(8, "El contrasena tiene que tener al menos 8 caracteres")
-        .oneOf([Yup.ref('contrasena'), null], 'Las contraseñas deben ser iguales'),
+        .oneOf([Yup.ref('contrasenia_vendedor'), null], 'Las contraseñas deben ser iguales'),
 
-        Nit : Yup.number()
+        NIT : Yup.number()
                         .required('La cantidad existente es Obligatorio')
                         .positive('No se aceptan numeros negativos o "0"')
                         .integer('la existencia debe ser en numeros enteros')
@@ -59,8 +106,38 @@ const formik = useFormik({
     onSubmit: valores => {
         console.log('enviando');
         console.log(valores);
+    },
+
+    onSubmit: async valores => {
+        const {NIT, apellido_vendedor, contrasenia_vendedor, correo_vendedor,nombre_vendedor } = valores;
+        try {
+            const {data} = await NuevoVendedor({
+                variables:{
+                    input : {
+                        nombre_vendedor: nombre_vendedor,
+                        apellido_vendedor: apellido_vendedor,
+                        contrasenia_vendedor: contrasenia_vendedor,
+                        correo_vendedor: correo_vendedor,
+                        NIT: NIT,
+                    } 
+                }
+            });
+            //producto creado correctamente mostrar mensaje
+            console.log(data)
+            Swal.fire(
+                'Creado',
+                'Creado correctamente',
+                'success'
+            )
+            router.push('/productos');
+            
+        } catch (error) {
+            console.log(error)
+        }
     }
 });
+
+
 
 const Cancelar =()=>{
     Swal.fire({
@@ -100,17 +177,17 @@ const Cancelar =()=>{
                             >
                             
                             <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nombre">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nombre_vendedor">
                                     Nombre
 
                                 </label>
 
                                 <input
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
-                                    id="nombre"
+                                    id="nombre_vendedor"
                                     type="text"
-                                    placeholder="Nombre Usuario"
-                                    value={formik.values.nombre}
+                                    placeholder="Nombre Vendedor"
+                                    value={formik.values.nombre_vendedor}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 />
@@ -118,27 +195,27 @@ const Cancelar =()=>{
                            </div>
 
                            {
-                                formik.touched.nombre && formik.errors.nombre ? (
+                                formik.touched.nombre_vendedor && formik.errors.nombre_vendedor ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                                         <p className="font-bold">Error</p>
-                                        <p>{formik.errors.nombre}</p>
+                                        <p>{formik.errors.nombre_vendedor}</p>
                                     </div>
                                 ) : null
                             }
 
 
                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="apellido">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="apellido_vendedor">
                                     Apeliido
 
                                 </label>
 
                                 <input
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
-                                    id="apellido"
+                                    id="apellido_vendedor"
                                     type="text"
-                                    placeholder="Apellido Usuario"
-                                    value={formik.values.apellido}
+                                    placeholder="Apellido Vendedor"
+                                    value={formik.values.apellido_vendedor}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 />
@@ -146,26 +223,26 @@ const Cancelar =()=>{
                            </div>
 
                            {
-                                formik.touched.apellido && formik.errors.apellido ? (
+                                formik.touched.apellido_vendedor && formik.errors.apellido_vendedor ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                                         <p className="font-bold">Error</p>
-                                        <p>{formik.errors.apellido}</p>
+                                        <p>{formik.errors.apellido_vendedor}</p>
                                     </div>
                                 ) : null
                             }
 
                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="correo_vendedor">
                                     Correo
 
                                 </label>
 
                                 <input
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
-                                    id="email"
+                                    id="correo_vendedor"
                                     type="email"
-                                    placeholder="Email Usuario"
-                                    value={formik.values.email}
+                                    placeholder="Email Vendedor"
+                                    value={formik.values.correo_vendedor}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 />
@@ -173,10 +250,10 @@ const Cancelar =()=>{
                            </div>
 
                            {
-                                formik.touched.email && formik.errors.email ? (
+                                formik.touched.correo_vendedor && formik.errors.correo_vendedor ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                                         <p className="font-bold">Error</p>
-                                        <p>{formik.errors.email}</p>
+                                        <p>{formik.errors.correo_vendedor}</p>
                                     </div>
                                 ) : null
                             }
@@ -184,17 +261,17 @@ const Cancelar =()=>{
                            
 
                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="passowrd">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contrasenia_vendedor">
                                     Contrasena
 
                                 </label>
 
                                 <input
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
-                                    id="contrasena"
+                                    id="contrasenia_vendedor"
                                     type="password"
-                                    placeholder="contrasena Usuario"
-                                    value={formik.values.contrasena}
+                                    placeholder="contrasenia Vendedor"
+                                    value={formik.values.contrasenia_vendedor}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 />
@@ -202,10 +279,10 @@ const Cancelar =()=>{
                            </div>
 
                            {
-                                formik.touched.contrasena && formik.errors.contrasena ? (
+                                formik.touched.contrasenia_vendedor && formik.errors.contrasenia_vendedor ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                                         <p className="font-bold">Error</p>
-                                        <p>{formik.errors.contrasena}</p>
+                                        <p>{formik.errors.contrasenia_vendedor}</p>
                                     </div>
                                 ) : null
                             }
@@ -238,15 +315,15 @@ const Cancelar =()=>{
                             }
 
 <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Nit">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="NIT">
                                     Nit
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="Nit"
+                                    id="NIT"
                                     type="number"
-                                    placeholder="Nit"
-                                    value={formik.values.Nit}
+                                    placeholder="NIT"
+                                    value={formik.values.NIT}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 />
