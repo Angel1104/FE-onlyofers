@@ -251,7 +251,7 @@ const Cancelar =()=>{
 
                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contrasenia_vendedor">
-                                    Contrasena
+                                    Contraseña
 
                                 </label>
 
@@ -278,7 +278,7 @@ const Cancelar =()=>{
 
                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="repetir_contrasena">
-                                    Repetir Contrasena
+                                    Repetir Contraseña
 
                                 </label>
 
@@ -303,7 +303,7 @@ const Cancelar =()=>{
                                 ) : null
                             }
 
-<div className="mb-4">
+                  <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="NIT">
                                     Nit
                                 </label>
