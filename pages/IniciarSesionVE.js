@@ -39,21 +39,21 @@ const IniciarSesionVE = () => {
 //form para new vendedor
     const formik = useFormik({
         initialValues:{
-            email : '',
-            nit: '',
-            password: '',
+            correo : '',
+            NIT: '',
+            Contraseña: '',
             
         },
         validationSchema: Yup.object({
-            email : Yup.string()
-                      .required('El Email es Obligatorio')
-                      .email('El Email no es valido'),
-            nit : Yup.number()
+            correo : Yup.string()
+                      .required('El correo es Obligatorio')
+                      .email('El correo no es valido'),
+            NIT : Yup.number()
                       .required('El  NIT es Obligatorio')
                       .moreThan(-1, 'No se aceptan números negativos')
                       .integer('El NIT debe ser un número entero')
                       .test('len', 'El NIT debe tener 7 digitos', val => Math.ceil (Math.log10 (val+1)) === 7),             
-            password : Yup.string()
+            Contraseña : Yup.string()
                       .required('La Contraseña es Obligatoria')
                       .min(6, 'Debe tener minimo 6 caracteres')
         }),
@@ -118,13 +118,13 @@ const IniciarSesionVE = () => {
                             </a>
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                                    Email
+                                    Correo
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="email"
                                     type="email"
-                                    placeholder="Email Usuario"
+                                    placeholder="Correo de Usuario"
                                     value={formik.values.email}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -141,7 +141,7 @@ const IniciarSesionVE = () => {
                             }
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nit">
-                                    Nit
+                                    NIT
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -170,7 +170,7 @@ const IniciarSesionVE = () => {
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="password"
                                     type="password"
-                                    placeholder="Password Usuario"
+                                    placeholder="Contraseña Usuario"
                                     value={formik.values.password}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -186,24 +186,24 @@ const IniciarSesionVE = () => {
                             }
                             <input
                             type="submit"
-                            className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
+                            className="bg-gray-800 text-center mx-40 mb-5 mt-5 p-2 text-white uppercase hover:bg-gray-900"
                             value="Iniciar Sesion"
-                        />
-                            <div className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900 text-center">
+                        /> 
+                            <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿Eres un cliente?
                             <Link href="/nuevovendedor">
-                                <a className=" text-white uppercase ">
-                                    Registrarse como Cliente
-                                </a>
-                            </Link>
-                        </div>
-                        <div className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900 text-center">
+                            <a className='bg-gray-800 px-2 mx-12 mb-3 inline-block text-white hover:bg-gray-900  '>
+                            Inicia Sesión
+                            </a>
+                            </Link> 
+                            </h1>
+
+                            <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿No tiene una cuenta?
                             <Link href="/nuevacuenta">
-                                <a className=" text-white uppercase ">
-                                    Registrarse 
-                                </a>
-                            </Link>
-                        </div>  
-                
+                            <a className='bg-gray-800 px-2 mx-3 inline-block text-white hover:bg-gray-900 '>
+                            Registrarse  
+                            </a>
+                            </Link> 
+                            </h1>
                 
                 </form>
                 
