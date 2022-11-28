@@ -1,18 +1,12 @@
 import React from 'react';
 import Layout from '../componentes/Layout';
-import Swal from 'sweetalert2';
-import Router from 'next/router';
 import Link  from "next/link";
-
 const Login = () => {
-
-    
-
     return(
 
         <>
             <Layout>
-                <h1 className="text-center text-2x1 text-blue font-light">Login</h1>
+                <h1 className="text-center text-3x1 text-black font-light">Login</h1>
 
                 <div className="flex justify-center mt-5">
                     <div className="w-full max-w-sm">
@@ -33,10 +27,24 @@ const Login = () => {
                                 />
 
                            </div>
+                           <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nit">
+                                    Nit
+
+                                </label>
+
+                                <input
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
+                                    id="nit"
+                                    type="nit"
+                                    placeholder="Nit Usuario"
+                                />
+
+                           </div>
 
                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="passowrd">
-                                    Password
+                                    Contraseña
 
                                 </label>
 
@@ -51,34 +59,22 @@ const Login = () => {
 
                            <input
                                 type="submit"
-                                className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:bg-gray-900"
-                                value="Iniciar Sesion"
+                                className="bg-gray-800 py-2 px-5 w-full mt-5 p-2 text-white uppercas hover:bg-gray-900"
+                                value="INICIAR SESIÓN"
 
                             />
-                            
-                            
-
+                     
+                     <Link href="/nuevovendedor">
+                   <a className='bg-gray-800 py-2 px-5 w-full text-center mt-1 inline-block text-white hover:bg-gray-800 hover:text-gray-200 mb-6  '>
+                      REGISTRARSE
+                     </a>
+                   </Link> 
                             </form>
-
-                            <Link href="/nuevacuenta">
-                            <a className='text-blue block'>
-                                Registrarse
-                            </a>
-                            </Link>
-
-                            <div className="mb-4"/>
-
-                            <Link href="/nuevovendedor">
-                            <a className='text-blue block'>
-                                Registrar Vendedor
-                            </a>
-                            </Link>
-
                     </div>
                 </div>
             </Layout>
         </>
-            );
-        }
-        
-        export default Login;
+    );
+}
+
+export default Login;

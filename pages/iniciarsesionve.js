@@ -32,6 +32,9 @@ const IniciarSesionVE = () => {
     const router = useRouter();
 
 
+   
+    
+
     
 //form para new vendedor
     const formik = useFormik({
@@ -42,15 +45,15 @@ const IniciarSesionVE = () => {
             
         },
         validationSchema: Yup.object({
-            email : Yup.string()
+            correo : Yup.string()
                       .required('El correo es Obligatorio')
                       .email('El correo no es valido'),
-            nit : Yup.number()
+            NIT : Yup.number()
                       .required('El  NIT es Obligatorio')
                       .moreThan(-1, 'No se aceptan números negativos')
                       .integer('El NIT debe ser un número entero')
                       .test('len', 'El NIT debe tener 7 digitos', val => Math.ceil (Math.log10 (val+1)) === 7),             
-            password : Yup.string()
+            Contraseña : Yup.string()
                       .required('La Contraseña es Obligatoria')
                       .min(6, 'Debe tener minimo 6 caracteres')
         }),
@@ -121,7 +124,7 @@ const IniciarSesionVE = () => {
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="email"
                                     type="email"
-                                    placeholder="Email Usuario"
+                                    placeholder="Correo de Usuario"
                                     value={formik.values.email}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -187,7 +190,7 @@ const IniciarSesionVE = () => {
                             value="Iniciar Sesion"
                         /> 
                             <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿Eres un cliente?
-                            <Link href="/login">
+                            <Link href="/iniciarsesionclie">
                             <a className='bg-gray-800 px-2 mx-12 mb-3 inline-block text-white hover:bg-gray-900  '>
                             Inicia Sesión
                             </a>
@@ -201,6 +204,7 @@ const IniciarSesionVE = () => {
                             </a>
                             </Link> 
                             </h1>
+                
                 </form>
                 
                 </div>
