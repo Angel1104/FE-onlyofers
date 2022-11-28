@@ -40,11 +40,13 @@ const TablaEmpresa = ({empresa}) => {
         }
     });
 
+
     const{nombre_empresa,numero_sucursal,direccion_empresa,telefono,tipo_empresa, id} = empresa;
 
     //eliminar empresa
     const confirmarEliminarEmpresa= id =>{
         Swal.fire({
+
             title: '¿Desea eliminar esta empresa?',
             text: "¡Esta acción no se puede deshacer!",
             icon: 'warning',
@@ -64,6 +66,7 @@ const TablaEmpresa = ({empresa}) => {
                         }
                     })
                     //mostrar alerta
+
                     Swal.fire(
                         'Eliminado!',
                         data.eliminarEmpresa,
@@ -76,6 +79,7 @@ const TablaEmpresa = ({empresa}) => {
             }
           })
     };
+
 
 
     const editarEmpresa =()=>{

@@ -59,7 +59,6 @@ const Sidebar = () => {
                     </a>
                     </Link>
                     </li>
-                  
                     <li className={empresa() ? "bg-blue-800 p-2" : "p-2"}>
                     <Link href="/empresas">
                     <a className='text-white block'>
@@ -67,7 +66,13 @@ const Sidebar = () => {
                     </a>
                     </Link>
                     </li>
-
+                    <li className={router.pathname === "/login" ? "bg-blue-800 p-2" : "p-2"}>
+                    <Link href="/login">
+                    <a className='text-white block'>
+                        Iniciar Sesión
+                    </a>
+                    </Link>
+                    </li>
                 </nav>
             </aside>
         </>

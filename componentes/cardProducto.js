@@ -8,7 +8,7 @@ const Producto = ({producto}) => {
                     class="h-36 object-cover "/>
                 <div class="px-3 py-2">
                     <h1 class="font-semibold">{nombre_producto}</h1>
-                    <p className='font-semibold'>Descripción: </p>
+                    <p className='text-sm'> Descripción: </p>
                     <p className='text-sm'>{descripcion_producto}</p>
                     <p class="text-sm">Precio: {precio} Bs.</p>
                     <p class="text-sm">Stock disponible: {existencia}</p>
