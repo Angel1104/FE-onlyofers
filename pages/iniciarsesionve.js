@@ -187,7 +187,7 @@ const IniciarSesionVE = () => {
                             value="Iniciar Sesion"
                         /> 
                             <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿Eres un cliente?
-                            <Link href="/nuevacuenta">
+                            <Link href="/login">
                             <a className='bg-gray-800 px-2 mx-12 mb-3 inline-block text-white hover:bg-gray-900  '>
                             Inicia Sesión
                             </a>
