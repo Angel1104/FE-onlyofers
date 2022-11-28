@@ -78,12 +78,12 @@ const formik = useFormik({
         .required('El email es obligatorio'),
 
         contrasenia_vendedor : Yup.string()
-        .required('El contrasena es obligatorio')
-        .min(8, "El contrasena tiene que tener al menos 8 caracteres"),
+        .required('La contraseña es obligatoria')
+        .min(8, "La contraseña tiene que tener al menos 8 caracteres"),
 
         repetir_contrasena : Yup.string()
-        .required('El contrasena es obligatorio')
-        .min(8, "El contrasena tiene que tener al menos 8 caracteres")
+        .required('La contraseña es obligatoria')
+        .min(8, "La contraseña tiene que tener al menos 8 caracteres")
         .oneOf([Yup.ref('contrasenia_vendedor'), null], 'Las contraseñas deben ser iguales'),
 
         NIT : Yup.number()

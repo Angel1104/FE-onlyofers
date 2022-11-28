@@ -68,12 +68,8 @@ const Login = () => {
                    <a className='bg-gray-800 py-2 px-5 w-full text-center mt-1 inline-block text-white hover:bg-gray-800 hover:text-gray-200 mb-6  '>
                       REGISTRARSE
                      </a>
-                   </Link>
-      
-                
-                            
+                   </Link> 
                             </form>
-
                     </div>
                 </div>
             </Layout>
