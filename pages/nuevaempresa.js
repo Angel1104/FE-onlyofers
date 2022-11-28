@@ -71,12 +71,12 @@ const NuevaEmpresa = () => {
         Swal.fire({
 
             title: '¿Desea Cancelar el registro?',
-            text: "Volvera a pagina empresas ",
+            text: "Volvera a página empresas ",
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'si',
+            confirmButtonText: 'Si',
             cancelButtonText: 'No'
         }).then(async(result) => {
             if (result.isConfirmed) {
@@ -125,7 +125,7 @@ const NuevaEmpresa = () => {
             telefono : Yup.number()
                       .required('El  Teléfono es Obligatorio')
                       .positive('No se aceptan números negativos')
-                      .test('len', 'El número de teléfono solo tiene 7 caracteres', val => Math.ceil (Math.log10 (val+1)) === 7),             
+                      .test('len', 'El número de teléfono debe tener 7 caracteres', val => Math.ceil (Math.log10 (val+1)) === 7),             
 
             tipo_empresa: Yup.string()
                             .required('El tipo de empresa es obligaorio')

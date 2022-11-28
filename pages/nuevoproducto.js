@@ -98,12 +98,12 @@ const NuevoProducto = () => {
     const Cancelar =()=>{
         Swal.fire({
             title: 'Desea Cancelar el registro?',
-            text: "Volvera a pagina productos ",
+            text: "Volvera a página productos ",
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'si',
+            confirmButtonText: 'Si',
             cancelButtonText: 'No'
         }).then(async(result) => {
             if (result.isConfirmed) {
@@ -189,6 +189,7 @@ const NuevoProducto = () => {
                     .required('La empresa es obligatoria'),
             tipo_producto: Yup.string()
                             .required('Se debe seleccionar el tipo de producto')
+                            
         }),
         onSubmit: async valores => {
             const {nombre, descripcion, precio, existencia, fecha_elaboracion,fecha_vencimiento,tipo_producto,empresa,estado} = valores;

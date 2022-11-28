@@ -91,7 +91,7 @@ const EditarEmpresa = () => {
         telefono : Yup.number()
                   .required('El  Teléfono es Obligatorio')
                   .positive('No se aceptan números negativos')
-                  .test('len', 'El número de teléfono solo tiene 7 caracteres', val => Math.ceil (Math.log10 (val+1)) === 7),  
+                  .test('len', 'El número de teléfono debe tener 7 caracteres', val => Math.ceil (Math.log10 (val+1)) === 7),  
                                    
 
         tipo_empresa: Yup.string()
