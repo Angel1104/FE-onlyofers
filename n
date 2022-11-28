@@ -1,0 +1,12 @@
+  EmpreProd[m
+  Empresa[m
+  ImgProd[m
+  PoliciaMilitar[m
+  bugs2R[m
+  bugsR[m
+  bugsRB[m
+  empresaN1[m
+  errores[m
+  iniFE[m
+* [32mmain[m
+  pruebasFinales[m

@@ -26,39 +26,6 @@ query ObtenerVendedor($correoVendedor: String!) {
         }
     }
 `;
-const NUEVA_EMPRESA=gql`
-mutation Mutation($input: EmpresaInput) {
-    nuevaEmpresa(input: $input) {
-        nombre_empresa
-        numero_sucursal
-        direccion_empresa
-        telefono
-        tipo_empresa
-    }
-  }  
-`;
-
-const OBTENER_EMPRESAS= gql`
-query Query {
-    obtenerEmpresas {
-      direccion_empresa
-      id
-      nombre_empresa
-      numero_sucursal
-      telefono
-      tipo_empresa
-    }
-  }
-`;
-
-const OBTENER_TIPO_EMPRESAS = gql`
-query ObtenerTiposEmpresas {
-    obtenerTiposEmpresas {
-      tipo_empresa
-      id
-    }
-  }
-`;
 
 const IniciarSesionVE = () => {
     //routing
@@ -69,7 +36,7 @@ const IniciarSesionVE = () => {
     
 
     
-//form para new empresa
+//form para new vendedor
     const formik = useFormik({
         initialValues:{
             email : '',
@@ -83,10 +50,11 @@ const IniciarSesionVE = () => {
                       .email('El Email no es valido'),
             nit : Yup.number()
                       .required('El  NIT es Obligatorio')
-                      .positive('No se aceptan números negativos')
-                      .test('len', 'El número de teléfono solo tiene 7 caracteres', val => Math.ceil (Math.log10 (val+1)) === 7),             
+                      .moreThan(-1, 'No se aceptan números negativos')
+                      .integer('El NIT debe ser un número entero')
+                      .test('len', 'El NIT debe tener 7 digitos', val => Math.ceil (Math.log10 (val+1)) === 7),             
             password : Yup.string()
-                      .required('El Password no puede estar vacio')
+                      .required('La Contraseña es Obligatoria')
                       .min(6, 'Debe tener minimo 6 caracteres')
         }),
         onSubmit: async valores => {
@@ -146,7 +114,7 @@ const IniciarSesionVE = () => {
                 >
                             <h1 className="text-3xl text-gray-800 font-ligth text-center mt-12">Iniciar Sesión</h1>
                             <a className='text-black block text-gray-800 font-ligth text-center mb-3'>
-                                Bienvenido vendedor que tengas un buen dia!
+                                Bienvenido vendedor que tengas un buen día!
                             </a>
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
@@ -157,6 +125,9 @@ const IniciarSesionVE = () => {
                                     id="email"
                                     type="email"
                                     placeholder="Email Usuario"
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
                                     
                                 />
                             </div>
@@ -175,7 +146,7 @@ const IniciarSesionVE = () => {
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="nit"
-                                    type="nit"
+                                    type="number"
                                     placeholder="Nit Usuario"
                                     value={formik.values.nit}
                                     onChange={formik.handleChange}
@@ -192,8 +163,8 @@ const IniciarSesionVE = () => {
                             }
 
                             <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="sucursal">
-                                Password 
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                                Contraseña 
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -221,7 +192,7 @@ const IniciarSesionVE = () => {
                             <div className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900 text-center">
                             <Link href="/nuevovendedor">
                                 <a className=" text-white uppercase ">
-                                    Registrarse Vendedor
+                                    Registrarse como Cliente
                                 </a>
                             </Link>
                         </div>
