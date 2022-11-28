@@ -121,7 +121,7 @@ const IniciarSesionVE = () => {
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="email"
                                     type="email"
-                                    placeholder="Email Usuario"
+                                    placeholder="Correo del Usuario"
                                     value={formik.values.email}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -144,7 +144,7 @@ const IniciarSesionVE = () => {
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="nit"
                                     type="number"
-                                    placeholder="Nit Usuario"
+                                    placeholder="NIT Usuario"
                                     value={formik.values.nit}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}

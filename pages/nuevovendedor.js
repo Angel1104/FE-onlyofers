@@ -155,7 +155,7 @@ const Cancelar =()=>{
 
         <>
             <Layout>
-                <h1 className="text-center text-2x1 text-blue font-light">Crear Nueva Cuenta Vendedor</h1>
+                <h1 className="text-center text-2x1 text-blue font-light">Nuevo Vendedor</h1>
 
                 <div className="flex justify-center mt-5">
                     <div className="w-full max-w-sm">
@@ -230,7 +230,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="correo_vendedor"
                                     type="email"
-                                    placeholder="Email Vendedor"
+                                    placeholder="Correo Vendedor"
                                     value={formik.values.correo_vendedor}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -259,7 +259,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="contrasenia_vendedor"
                                     type="password"
-                                    placeholder="contrasenia Vendedor"
+                                    placeholder="Contraseña Vendedor"
                                     value={formik.values.contrasenia_vendedor}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -305,7 +305,7 @@ const Cancelar =()=>{
 
                   <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="NIT">
-                                    Nit
+                                    NIT
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

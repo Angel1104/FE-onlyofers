@@ -15,13 +15,13 @@ const Login = () => {
                 <h1 className="text-center text-2x1 text-blue font-light">Login</h1>
 
                 <div className="flex justify-center mt-5">
-                    <div className="w-full max-w-sm">
-                        <form
-                            className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4">
+                <div className="bg-white shadow-md px-8 pt-6 pb-8 mb-4">
+
+                        <form>
 
                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                                    Email
+                                    Correo
 
                                 </label>
 
@@ -29,14 +29,14 @@ const Login = () => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="email"
                                     type="email"
-                                    placeholder="Email Usuario"
+                                    placeholder="Correo Usuario"
                                 />
 
                            </div>
 
                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="passowrd">
-                                    Password
+                                    Contraseña
 
                                 </label>
 
@@ -44,35 +44,35 @@ const Login = () => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="password"
                                     type="password"
-                                    placeholder="Password Usuario"
+                                    placeholder="Contraseña Usuario"
                                 />
 
                            </div>
 
                            <input
                                 type="submit"
-                                className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:bg-gray-900"
-                                value="Iniciar Sesion"
+                                className="bg-gray-800 text-center mx-40 mb-5 mt-5 p-2 text-white uppercase hover:bg-gray-900"
+                                value="INICIAR SESION"
 
                             />
                             
                             
+                            <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿Eres un vendedor?
+                            <Link href="/iniciarsesionve">
+                            <a className='bg-gray-800 px-2 mx-12 mb-3 inline-block text-white hover:bg-gray-900  '>
+                            Inicia Sesión
+                            </a>
+                            </Link> 
+                            </h1>
 
-                            </form>
-
+                            <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿No tiene una cuenta?
                             <Link href="/nuevacuenta">
-                            <a className='text-blue block'>
-                                Registrarse
+                            <a className='bg-gray-800 px-2 mx-3 inline-block text-white hover:bg-gray-900 '>
+                            Registrarse  
                             </a>
-                            </Link>
-
-                            <div className="mb-4"/>
-
-                            <Link href="/nuevovendedor">
-                            <a className='text-blue block'>
-                                Registrar Vendedor
-                            </a>
-                            </Link>
+                            </Link> 
+                            </h1>
+                            </form>
 
                     </div>
                 </div>
