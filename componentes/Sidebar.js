@@ -66,8 +66,8 @@ const Sidebar = () => {
                     </a>
                     </Link>
                     </li>                    
-                    <li className={empresa() ? "bg-blue-800 p-2" : "p-2"}>
-                    <Link href="/IniciarSesionVE">
+                    <li className={path === "/iniciarsesionve" ? "bg-blue-800 p-2" : "p-2"}>
+                    <Link href="/iniciarsesionve">
                     <a className='text-white block'>
                         Iniciar Sesión
                     </a>

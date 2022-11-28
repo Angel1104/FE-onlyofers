@@ -118,7 +118,7 @@ const formik = useFormik({
                 'Creado correctamente',
                 'success'
             )
-            router.push('/');
+            router.push('/iniciarsesionve');
             
         } catch (error) {
             console.log(error)
@@ -142,7 +142,7 @@ const Cancelar =()=>{
         if (result.isConfirmed) {
 
             Router.push({
-                pathname: "../"
+                pathname: "/iniciarsesionve"
                 
             })
 
@@ -155,7 +155,7 @@ const Cancelar =()=>{
 
         <>
             <Layout>
-                <h1 className="text-center text-2x1 text-blue font-light">Crear Nueva Cuenta</h1>
+                <h1 className="text-center text-2x1 text-blue font-light">Crear Nueva Cuenta Vendedor</h1>
 
                 <div className="flex justify-center mt-5">
                     <div className="w-full max-w-sm">
