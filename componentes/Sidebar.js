@@ -59,15 +59,13 @@ const Sidebar = () => {
                     </a>
                     </Link>
                     </li>
-                  
                     <li className={empresa() ? "bg-blue-800 p-2" : "p-2"}>
                     <Link href="/empresas">
                     <a className='text-white block'>
                         Empresa
                     </a>
                     </Link>
-                    </li>
-                    
+                    </li>                    
                     <li className={empresa() ? "bg-blue-800 p-2" : "p-2"}>
                     <Link href="/IniciarSesionVE">
                     <a className='text-white block'>

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Layout from '../componentes/Layout';
 import {useFormik} from 'formik';
@@ -68,6 +69,7 @@ const NuevaEmpresa = () => {
     );
     const Cancelar =()=>{
         Swal.fire({
+
             title: '¿Desea Cancelar el registro?',
             text: "Volvera a página empresas ",
             icon: 'question',
@@ -132,6 +134,7 @@ const NuevaEmpresa = () => {
             const {nombre, sucursal, direccion, telefono, tipo_empresa} = valores;
             try {
                 Swal.fire({
+
                     title: '¿Desea Agregar esta Empresa?',
                     icon: 'question',
                     showCancelButton: true,
