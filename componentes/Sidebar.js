@@ -36,15 +36,7 @@ const Sidebar = () => {
         return rese
     };
 
-    const iniciarSesion = () =>{
-        var resIS;
-        if ( path === "/iniciarsesionve" || path === "/login"|| path === "/nuevacuenta" || path === "/nuevovendedor") {
-            resIS = true
-        } else {
-            resIS = false
-        }
-        return resIS
-    }
+
     return ( 
         <>
             <aside className='bg-gray-800 sm:w-1/3 xl:w-1/5 sm:min-h-screen p-5'>
@@ -73,9 +65,9 @@ const Sidebar = () => {
                         Empresa
                     </a>
                     </Link>
-                    </li>                    
-                    <li className={iniciarSesion() ? "bg-blue-800 p-2" : "p-2"}>
-                    <Link href="/iniciarsesionve">
+                    </li>
+                    <li className={router.pathname === "/login" ? "bg-blue-800 p-2" : "p-2"}>
+                    <Link href="/IniciarSesionVE">
                     <a className='text-white block'>
                         Iniciar Sesión
                     </a>
