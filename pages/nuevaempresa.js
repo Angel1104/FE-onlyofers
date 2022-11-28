@@ -69,7 +69,8 @@ const NuevaEmpresa = () => {
     );
     const Cancelar =()=>{
         Swal.fire({
-            title: 'Desea Cancelar el registro?',
+
+            title: '¿Desea Cancelar el registro?',
             text: "Volvera a pagina empresas ",
             icon: 'question',
             showCancelButton: true,
@@ -104,15 +105,15 @@ const NuevaEmpresa = () => {
                     .required('El nombre es Obligatorio')
                     .trim('El Nombre es Obligatorio')
                     .min(3, "El nombre tiene que tener al menos 3 caracteres")
-                    .max(30, "El nombre no puede superar los 30 caracteres")
+                    .max(50, "El nombre no puede superar los 50 caracteres")
                     .matches(
                         /^[aA-zZ\s]+$/,
-                        'No se admiten caracteres de tipo númerico'
+                        'No puede usar caracteres especiales o de tipo númerico'
                       ),
 
             sucursal : Yup.number()
                       .required('El número de Sucursal es Obligatorio')
-                      .positive('No se aceptan números negativos o "0"')
+                     .moreThan(-1, 'No se aceptan números negativos')
                       .integer('El número de Sucursal debe ser en números enteros'),
 
             direccion: Yup.string()
@@ -122,9 +123,9 @@ const NuevaEmpresa = () => {
                       .max(150, "La Dirección no puede superar los 150 caracteres"),
                      
             telefono : Yup.number()
-                      .required('El  número de teléfono es Obligatorio')
-                      .positive('No se aceptan números negativos o "0"')
-                      .test('len', 'Debe tener maximo 8 digitos', val => Math.ceil (Math.log10 (val+1)) === 8),             
+                      .required('El  Teléfono es Obligatorio')
+                      .positive('No se aceptan números negativos')
+                      .test('len', 'El número de teléfono solo tiene 7 caracteres', val => Math.ceil (Math.log10 (val+1)) === 7),             
 
             tipo_empresa: Yup.string()
                             .required('El tipo de empresa es obligaorio')
@@ -133,7 +134,8 @@ const NuevaEmpresa = () => {
             const {nombre, sucursal, direccion, telefono, tipo_empresa} = valores;
             try {
                 Swal.fire({
-                    title: 'Desea Agregar esta Empresa?',
+
+                    title: '¿Desea Agregar esta Empresa?',
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -312,7 +314,6 @@ const NuevaEmpresa = () => {
                 <button 
                     type="submit" 
                     className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
-                   
                     >
                     
                     AGREGAR NUEVA EMPRESA
