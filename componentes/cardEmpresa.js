@@ -14,7 +14,6 @@ const Empresa = ({empresa}) => {
                     <p class="text-sm">teléfono: {telefono} </p>
                     <p class="text-sm">tipo de empresa: {tipo_empresa}</p>
                     <p class="text-sm">{id}</p>
-                    
                 </div>
         </a>
     )

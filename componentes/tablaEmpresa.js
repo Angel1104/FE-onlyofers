@@ -40,13 +40,15 @@ const TablaEmpresa = ({empresa}) => {
         }
     });
 
-    const{nombre_empresa,numero_sucursal,direccion_empresa,telefono,id} = empresa;
+
+    const{nombre_empresa,numero_sucursal,direccion_empresa,telefono,tipo_empresa, id} = empresa;
 
     //eliminar empresa
     const confirmarEliminarEmpresa= id =>{
         Swal.fire({
-            title: 'Desea eliminar esta empresa?',
-            text: "Esta accion no se puede deshacer!",
+
+            title: '¿Desea eliminar esta empresa?',
+            text: "¡Esta acción no se puede deshacer!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -64,32 +66,35 @@ const TablaEmpresa = ({empresa}) => {
                         }
                     })
                     //mostrar alerta
-                   /* Swal.fire(
+
+                    Swal.fire(
                         'Eliminado!',
                         data.eliminarEmpresa,
                         'success'
-                      )*/
+                      )
                 } catch (error) {
                     console.log(error)
-                
                 }
+
             }
           })
     };
 
 
-    function editarEmpresa() {
-                    Router.push({
-                        pathname: "/editarempresa/[id]",
-                        query: { id }
-                    });
-                }
+
+    const editarEmpresa =()=>{
+        Router.push({
+            pathname: "/editarempresa/[id]",
+            query:{id}
+        })
+    };
     return ( 
         <tr>
             <td className='border px-4 py-2'>{nombre_empresa}</td>
             <td className='border px-4 py-2'>{numero_sucursal}</td>
             <td className='border px-4 py-2'>{direccion_empresa} </td>
             <td className='border px-4 py-2'>{telefono}</td>
+            <td className='border px-4 py-2'>{tipo_empresa}</td>
             <td className='border px-4 py-2'>
                 <button 
                     type="button" 

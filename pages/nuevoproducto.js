@@ -85,13 +85,13 @@ const NuevoProducto = () => {
     const confirmarAgregarProducto =()=>{
         Swal.fire({
             title: 'Desea Agregar este producto?',
-            
             icon: 'question',
+            showDenyButton: true,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, Agregar',
-            cancelButtonText: 'No, Cancelar'
+            cancelButtonText: 'No, Cancelar',
           })
     };
 
@@ -117,6 +117,24 @@ const NuevoProducto = () => {
           })
     };
 
+    const fecha = () => {
+        var fechaHoy
+        let date = new Date()
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+
+        if(month < 10){
+            fechaHoy =(`0${month}-${day}-${year}`)
+        }else{
+            fechaHoy =(`${month}-${day}-${year}`)
+        }
+        console.log(fechaHoy)
+        
+        return ( fechaHoy );
+    }
+
+
     
 //form para new product
     const formik = useFormik({
@@ -134,6 +152,7 @@ const NuevoProducto = () => {
         validationSchema: Yup.object({
             nombre : Yup.string()
                     .required('El Nombre es Obligatorio')
+                    .trim('El Nombre es Obligatorio')
                     .min(3, "El nombre tiene que tener al menos 3 carácteres")
                     .max(50, "El nombre no puede superar los 50 carácteres")
                     .matches(
@@ -146,19 +165,24 @@ const NuevoProducto = () => {
                         .integer('la existencia debe ser en numeros enteros'),
             precio : Yup.number()
                         .required('El  precio es Obligatorio')
-                        .positive('No se aceptan numeros negativos o "0"'), 
+                        .positive('No se aceptan numeros negativos o "0"')
+                        .max(10000, 'No se admite insertar montos de dinero imposible'),
             descripcion: Yup.string()
-                        .required('La descripcion es obligatoria')
-                        .min(3, "La descripcion tiene que tener al menos 3 carácteres")
-                        .max(150, "La descripcion no puede superar los 150 carácteres"),
+                        .required('La descripción es obligatoria')
+                        .trim('La descripción es obligatoria')
+                        .min(3, "La descripción tiene que tener al menos 3 caracteres")
+                        .max(150, "La descripción no puede superar los 150 caracteres"),
             fecha_elaboracion: Yup.date()
-                            .required('La fecha de elaboracion es obligatoria'),
+                            .required('La fecha de elaboración es obligatoria')
+                            .max('11-11-2022', 'La fecha de elaboración no debe ser antes de la fecha actual')
+                            .min('11-11-2018', 'La fecha de elaboración no puede ser menos a los cuatro años'),
             fecha_vencimiento: Yup.date()
                             .required('La fecha de vencimiento es obligatoria')
                             .min(
                                 Yup.ref("fecha_elaboracion"),
-                                "La fecha de vencimiento debe ser despues de la de elaboración"
-                            ),
+                                "La fecha de vencimiento debe ser despúes de la fecha de elaboración"
+                            )
+                            .max('11-11-2028', 'La fecha de vencimiento no debe ser mayor a los cuatro años'),
             estado: Yup.string()
                     .required('Estado obligatorio'),
             empresa: Yup.string()
@@ -214,8 +238,9 @@ const NuevoProducto = () => {
             <h1 className="text-2xl text-gray-800 font-ligth text-center">Nuevo Producto</h1>
             <div className="flex justify-center mt-5 ">
             <div className="w-full max-w-lg">
+                <div  className="bg-white shadow-md px-8 pt-6 pb-8 mb-4">
                 <form
-                    className="bg-white shadow-md px-8 pt-6 pb-8 mb-4"
+                   
                     onSubmit={formik.handleSubmit}
                 >
                             <div className="mb-4">
@@ -356,7 +381,7 @@ const NuevoProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="estado">
-                                    Estado del producto
+                                    Estado del Producto
                                 </label>
                                 <select
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -390,7 +415,7 @@ const NuevoProducto = () => {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 >
-                                    <option selected>selecione una empresa</option>
+                                    <option selected>Seleccione</option>
                                     {empresas.data.obtenerEmpresas.map(empresa=>(
                                         <ComboEmpresas
                                             key={empresa.id}
@@ -410,7 +435,7 @@ const NuevoProducto = () => {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tipo_producto">
-                                    Tipo de producto
+                                    Tipo de Producto 
                                 </label>
                                 <select
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -419,7 +444,7 @@ const NuevoProducto = () => {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 >
-                                    <option selected>selecione un tipo de producto</option>
+                                    <option selected>Seleccione</option>
                                     {productos.data.obtenerTiposProductos.map(TipoProducto =>(
                                         <ComboProductos
                                             key={TipoProducto.id}
@@ -446,15 +471,15 @@ const NuevoProducto = () => {
                     AGREGAR NUEVO PRODUCTO
                     
                 </button>
-                
+                </form>
                 <button 
-                    type="submit" 
+                    type="" 
                     className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                     onClick={()=>Cancelar()}
                     >
                     Cancelar    
                 </button>
-                </form>
+                </div>
             </div>
         </div>
         </Layout>

@@ -30,7 +30,7 @@ export default function Index() {
     <div>
       <Layout>
       <h1 className='text-2xl text-gray-800 font-light mb-4 '>Productos</h1>  
-        <Link href="/productos">
+        <Link href="">
         <a className='bg-blue-800 mr-5 py-3 px-5 mt-4 inline-block text-white hover:bg-gray-800 hover:text-gray-200 mb-6 rounded uppercase fotn-bold text-sm'>
           Productos
         </a>
@@ -55,4 +55,6 @@ export default function Index() {
     </div>
   )
 
+
 }
+

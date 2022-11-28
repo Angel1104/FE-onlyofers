@@ -2,10 +2,41 @@ import React from 'react'
 import Link  from "next/link";
 import {useRouter} from 'next/router';
 
+
 const Sidebar = () => {
 
     //routing de next
     const router = useRouter();
+    const path = router.pathname;
+    const home = () => {
+        var resh;
+        if ( path === "/" || path === "/empresa") {
+            resh = true
+        } else {
+            resh = false
+        }
+        return resh
+    };
+    const producto = () => {
+        var resp;
+        if ( path === "/productos" || path === "/nuevoproducto") {
+            resp = true
+        } else {
+            resp = false
+        }
+        return resp
+    };
+    const empresa = () => {
+        var rese;
+        if ( path === "/empresas" || path === "/nuevaempresa") {
+            rese = true
+        } else {
+            rese = false
+        }
+        return rese
+    };
+
+
     return ( 
         <>
             <aside className='bg-gray-800 sm:w-1/3 xl:w-1/5 sm:min-h-screen p-5'>
@@ -13,24 +44,25 @@ const Sidebar = () => {
                     <p className='text-white text-2xl font-black'>OnlyOfers</p>
                 </div>
                 <nav className='mt-5 list-none '>
-                    <li className={router.pathname === "/" ? "bg-blue-800 p-2" : "p-2"}>
+                    <li className={home() ? "bg-blue-800 p-2" : "p-2"}>
                     <Link href="/">
                         <a className='text-white block'>
                             Home
                         </a>   
                     </Link>
+                    
                     </li>
-                    <li className={router.pathname === "/productos" ? "bg-blue-800 p-2" : "p-2"}>
+                    <li className={producto() ? "bg-blue-800 p-2" : "p-2"}>
                     <Link href="/productos">
                     <a className='text-white block'>
                         Productos
                     </a>
                     </Link>
                     </li>
-                    <li className={router.pathname === "/empresas" ? "bg-blue-800 p-2" : "p-2"}>
+                    <li className={empresa() ? "bg-blue-800 p-2" : "p-2"}>
                     <Link href="/empresas">
                     <a className='text-white block'>
-                        Empresas
+                        Empresa
                     </a>
                     </Link>
                     </li>
