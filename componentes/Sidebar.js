@@ -35,7 +35,7 @@ const Sidebar = () => {
                     </Link>
                     </li>
                     <li className={router.pathname === "/login" ? "bg-blue-800 p-2" : "p-2"}>
-                    <Link href="/login">
+                    <Link href="/IniciarSesionVE">
                     <a className='text-white block'>
                         Iniciar Sesión
                     </a>

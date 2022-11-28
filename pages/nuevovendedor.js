@@ -155,7 +155,7 @@ const Cancelar =()=>{
 
         <>
             <Layout>
-                <h1 className="text-center text-2x1 text-blue font-light">Crear Nueva Cuenta</h1>
+                <h1 className="text-center text-2x1 text-blue font-light">Nuevo Vendedor</h1>
 
                 <div className="flex justify-center mt-5">
                     <div className="w-full max-w-sm">
@@ -259,7 +259,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="contrasenia_vendedor"
                                     type="password"
-                                    placeholder="contrasenia Vendedor"
+                                    placeholder="contraseña Vendedor"
                                     value={formik.values.contrasenia_vendedor}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -286,7 +286,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="repetir_contrasena"
                                     type="password"
-                                    placeholder="contrasena Usuario"
+                                    placeholder="Repetir Contraseña Vendedor"
                                     value={formik.values.repetir_contrasena}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -305,7 +305,7 @@ const Cancelar =()=>{
 
                   <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="NIT">
-                                    Nit
+                                    NIT
                                 </label>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -332,7 +332,7 @@ const Cancelar =()=>{
                     onClick={()=>confirmarRegistrarse  ()}
                     >
                     
-                    Registrarse
+                    REGISTRARSE
                     
                   </button>
                 
@@ -341,7 +341,7 @@ const Cancelar =()=>{
                             className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                             onClick={()=>Cancelar()}
                          >
-                          Cancelar    
+                          CANCELAR   
                              </button>
                             </form>
 
