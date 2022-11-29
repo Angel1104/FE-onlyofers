@@ -58,7 +58,7 @@ const formik = useFormik({
                     .required('El nombre es Obligatorio')
                     .trim('El Nombre es Obligatorio')
                     .min(3, "El nombre tiene que tener al menos 3 caracteres")
-                    .max(50, "El nombre no puede superar los 20 caracteres")
+                    .max(20, "El nombre no puede superar los 20 caracteres")
                     .matches(
                         /^[aA-zZ\s]+$/,
                         'No puede usar caracteres especiales o de tipo númerico'
@@ -67,7 +67,7 @@ const formik = useFormik({
                     .required('El Apellido es Obligatorio')
                     .trim('El Apellido es Obligatorio')
                     .min(3, "El apellido tiene que tener al menos 3 caracteres")
-                    .max(50, "El apellido no puede superar los 20 caracteres")
+                    .max(20, "El apellido no puede superar los 20 caracteres")
                     .matches(
                         /^[aA-zZ\s]+$/,
                         'No puede usar caracteres especiales o de tipo númerico'

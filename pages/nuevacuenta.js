@@ -123,7 +123,7 @@ const Cancelar =()=>{
 
                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="apellido">
-                                    Apeliido
+                                    Apellido
 
                                 </label>
 
@@ -214,7 +214,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="repetir_contrasena"
                                     type="password"
-                                    placeholder="contrasena Usuario"
+                                    placeholder="Repetir contraseña"
                                     value={formik.values.repetir_contrasena}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -242,7 +242,7 @@ const Cancelar =()=>{
                             className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                             onClick={()=>Cancelar()}
                             >
-                                CANCELAR
+                                Cancelar
                             </button>  
                             </form>
 
