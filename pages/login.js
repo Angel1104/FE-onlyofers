@@ -12,13 +12,16 @@ const Login = () => {
 
         <>
             <Layout>
-                <h1 className="text-center text-2x1 text-blue font-light">Login</h1>
+                
 
                 <div className="flex justify-center mt-5">
                 <div className="bg-white shadow-md px-8 pt-6 pb-8 mb-4">
 
                         <form>
-
+                            <h1 className="text-3xl text-gray-800 font-ligth text-center mt-12">Iniciar Sesión</h1>
+                            <a className='text-black block text-gray-800 font-ligth text-center mb-3'>
+                                Bienvenido vendedor que tengas un buen día!
+                            </a>
                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                                     Correo
@@ -52,7 +55,7 @@ const Login = () => {
                            <input
                                 type="submit"
                                 className="bg-gray-800 text-center mx-40 mb-5 mt-5 p-2 text-white uppercase hover:bg-gray-900"
-                                value="INICIAR SESION"
+                                value="INICIAR SESIÓN"
 
                             />
                             

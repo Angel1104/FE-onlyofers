@@ -75,7 +75,7 @@ const Sidebar = () => {
                     </Link>
                     </li>                    
                     <li className={iniciarSesion() ? "bg-blue-800 p-2" : "p-2"}>
-                    <Link href="/iniciarsesionve">
+                    <Link href="/login">
                     <a className='text-white block'>
                         Iniciar Sesión
                     </a>
