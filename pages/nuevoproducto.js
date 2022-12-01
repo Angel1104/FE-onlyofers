@@ -188,8 +188,7 @@ const NuevoProducto = () => {
             empresa: Yup.string()
                     .required('La empresa es obligatoria'),
             tipo_producto: Yup.string()
-                            .required('Se debe seleccionar el tipo de producto')
-                            
+                    .required('El tipo de producto es obligatorio')
         }),
         onSubmit: async valores => {
             const {nombre, descripcion, precio, existencia, fecha_elaboracion,fecha_vencimiento,tipo_producto,empresa,estado} = valores;
