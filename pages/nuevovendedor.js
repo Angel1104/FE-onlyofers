@@ -268,7 +268,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="repetir_contrasena"
                                     type="password"
-                                    placeholder="Contraseña Usuario"
+                                    placeholder="Contraseña Vendedor"
                                     value={formik.values.repetir_contrasena}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
