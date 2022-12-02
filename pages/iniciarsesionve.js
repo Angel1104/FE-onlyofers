@@ -44,10 +44,10 @@ const IniciarSesionVE = () => {
                       .required('El  NIT es Obligatorio')
                       .moreThan(-1, 'No se aceptan números negativos')
                       .integer('El NIT debe ser un número entero')
-                      .test('len', 'El NIT debe tener 7 digitos', val => Math.ceil (Math.log10 (val+1)) === 7),             
+                      .test('len', 'El NIT debe tener 7 digitos', val => Math.ceil (Math.log10 (val+1)) === 14),             
             password : Yup.string()
                       .required('La Contraseña es Obligatoria')
-                      .min(6, 'Debe tener minimo 6 caracteres')
+                      .min(8, 'La contraseña tiene que tener al menos 8 caracteres')
         }),
         onSubmit: async valores => {
             const {email} = valores;
