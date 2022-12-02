@@ -20,20 +20,27 @@ query ObtenerVendedor($correoVendedor: String!) {
     }
   }
 `;
-
+const AUTENTICAR_VENDEDOR=gql`
+mutation AutenticarVendedor($input: AutenticarVInput) {
+    autenticarVendedor(input: $input) {
+      token
+    }
+  }
+`
 const IniciarSesionVE = () => {
+    const[mensaje, guardarMensaje]= useState(null)
     //routing
     const router = useRouter();
 
-    const obtenerVendedor = useQuery(OBTENER_VENDEDOR);
+    const [autenticarVendedor]= useMutation(AUTENTICAR_VENDEDOR);
 
     
 //form para new vendedor
     const formik = useFormik({
         initialValues:{
-            correo : '',
-            NIT: '',
-            Contraseña: '',
+            email : '',
+            nit: '',
+            password: '',
             
         },
         validationSchema: Yup.object({
@@ -50,16 +57,20 @@ const IniciarSesionVE = () => {
                       .min(8, 'La contraseña tiene que tener al menos 8 caracteres')
         }),
         onSubmit: async valores => {
-            const {email} = valores;
+            const {email,nit,password} = valores;
+            let NIT = nit.toString();
+            console.log(NIT)
+            console.log(valores)
             try {
-                const {data} = await obtenerVendedor ({
+                const {data} = await autenticarVendedor ({
                     variables:{
                         input:{
-                            correoVendedor: email
+                            contrasenia_vendedor: password,
+                            correo_vendedor: email,
+                            NIT:NIT
                         }
                     }
                 });
-                // refetch({correoCliente:email})
             console.log(data)
             Swal.fire(
                 'Sesion Iniciada',
@@ -68,12 +79,21 @@ const IniciarSesionVE = () => {
             )
             router.push('/')
             } catch (error) {
+                guardarMensaje(error.message)
                 console.log(error)
             }
         }
     });
     
-    
+    const mostrarMensaje =()=>{
+        return(
+            <div 
+            className='bg-red-500 py-2 px-3 w-full my-3 max-w-sm text-center mx-auto'
+            >
+                <p>{mensaje}</p>
+            </div>
+        )
+    }
 
     return ( 
         <Layout>
@@ -88,6 +108,7 @@ const IniciarSesionVE = () => {
                             <a className='text-black block text-gray-800 font-ligth text-center mb-3'>
                                 Bienvenido vendedor que tengas un buen día!
                             </a>
+                            
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                                     Correo
@@ -178,6 +199,7 @@ const IniciarSesionVE = () => {
                             </a>
                             </Link> 
                             </h1>
+                            {mensaje && mostrarMensaje()}
                 </div>
             </div>
         </div>

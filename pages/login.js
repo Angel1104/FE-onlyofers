@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Layout from '../componentes/Layout';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
@@ -29,6 +29,8 @@ mutation AutenticarCliente($input: AutenticarCInput) {
 `;
 
 const Login = () => {
+
+    const[mensaje, guardarMensaje]= useState(null)
     //routing
     const router = useRouter();
     const [autenticarCliente] = useMutation(AUTENTICAR_CLIENTE);
@@ -65,19 +67,30 @@ const Login = () => {
             )
             router.push('/')
             } catch (error) {
+                guardarMensaje(error.message)
                 console.log(error)
             }
         }
     })
 
+    const mostrarMensaje =()=>{
+        return(
+            <div 
+            className='bg-red-500 py-2 px-3 w-full my-3 max-w-sm text-center mx-auto'
+            >
+                <p>{mensaje}</p>
+            </div>
+        )
+    }
     return(
 
         <>
             <Layout>
-                <h1 className="text-center text-2x1 text-blue font-light">INICIAR SESION</h1>
 
                 <div className="flex justify-center mt-5">
                 <div className="bg-white shadow-md px-8 pt-6 pb-8 mb-4">
+                <h1 className="text-center text-2x1 text-blue font-light">INICIAR SESION</h1>
+                
 
                         <form
                         onSubmit={formik.handleSubmit}
@@ -160,7 +173,7 @@ const Login = () => {
                             </a>
                             </Link> 
                             </h1>
-                            
+                            {mensaje && mostrarMensaje()}
 
                     </div>
                 </div>
