@@ -3,9 +3,31 @@ import Layout from '../componentes/Layout';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
-import Router from 'next/router';
+import {useMutation,gql, useQuery} from '@apollo/client';
+import Router, { useRouter } from 'next/router';
 
+
+
+
+const NUEVO_CLIENTE=gql`
+mutation NuevoCliente($input: ClienteInput) {
+    nuevoCliente(input: $input) {
+      id
+      nombre_cliente
+      apellido_cliente
+      correo_cliente
+      contrasenia_cliente
+    }
+  }
+`;
 const NuevaCuenta = () => {
+
+//routing
+const router = useRouter();
+
+
+//mutation para crear producto
+const  [nuevoCliente]= useMutation(NUEVO_CLIENTE);
 
 //validacion del formulario
 const formik = useFormik({
@@ -21,8 +43,8 @@ const formik = useFormik({
                     .required('El nombre es Obligatorio')
                     .trim('El Nombre es Obligatorio')
                     .min(3, "El nombre tiene que tener al menos 3 caracteres")
-                    .max(50, "El nombre no puede superar los 20 caracteres")
-                    /*.matches(
+                    .max(20, "El nombre no puede superar los 20 caracteres")
+                    .matches(
                         /^[aA-zZ\s]+$/,
                         'No puede usar caracteres especiales o de tipo númerico'
                       ),*/
@@ -34,7 +56,7 @@ const formik = useFormik({
                     .required('El Apellido es Obligatorio')
                     .trim('El Apellido es Obligatorio')
                     .min(3, "El apellido tiene que tener al menos 3 caracteres")
-                    .max(50, "El apellido no puede superar los 20 caracteres")
+                    .max(20, "El apellido no puede superar los 20 caracteres")
                     .matches(
                         /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
@@ -54,9 +76,31 @@ const formik = useFormik({
                     .oneOf([Yup.ref('contrasena'), null], 'Las contraseñas deben ser iguales')
 
     }),
-    onSubmit: valores => {
-        console.log('enviando');
-        console.log(valores);
+    onSubmit: async valores => {
+        const {nombre, apellido, email, contrasena } = valores;
+        try {
+            const {data} = await nuevoCliente({
+                variables:{
+                    input : {
+                        apellido_cliente: apellido,
+                        contrasenia_cliente: contrasena,
+                        correo_cliente: email,
+                        nombre_cliente: nombre
+                    } 
+                }
+            });
+            //usuario creado correctamente mostrar mensaje
+            console.log(data)
+            Swal.fire(
+                'Creado',
+                'Creado correctamente',
+                'success'
+            )
+            router.push('/login');
+            
+        } catch (error) {
+            console.log(error)
+        }
     }
 });
 
@@ -74,7 +118,7 @@ const Cancelar =()=>{
         if (result.isConfirmed) {
 
             Router.push({
-                pathname: "../"
+                pathname: "/login"
                 
             })
 
@@ -87,14 +131,12 @@ const Cancelar =()=>{
 
         <>
             <Layout>
-                <h1 className="text-center text-2x1 text-blue font-light">Crear Nueva Cuenta</h1>
+                <h1 className="text-center text-2x1 text-blue font-light">Nuevo Cliente</h1>
 
                 <div className="flex justify-center mt-5">
-                    <div className="w-full max-w-sm">
+                    <div className="w-full max-w-sm bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4">
                         <form
-                            className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
-                            onSubmit={formik.handleSubmit}
-                            
+                            onSubmit={formik.handleSubmit} 
                             >
                             
                             <div className="mb-4">
@@ -191,7 +233,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="contrasena"
                                     type="password"
-                                    placeholder="contrasena Usuario"
+                                    placeholder="Contrasena Usuario"
                                     value={formik.values.contrasena}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -238,7 +280,7 @@ const Cancelar =()=>{
                            <input
                                 type="submit"
                                 className="bg-gray-800 w-full mt-5 p-2 text-white uppercas hover:bg-gray-900"
-                                value="Registrarse"
+                                value="REGISTRARSE"
 
                             />
                             <button 
