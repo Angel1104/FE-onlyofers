@@ -62,8 +62,8 @@ const formik = useFormik({
                     ),
 
         correo_vendedor : Yup.string()
-            .email('El email no es valido')
-            .required('El email es obligatorio'),
+            .email('El correo no es valido')
+            .required('El correo es obligatorio'),
 
         contrasenia_vendedor : Yup.string()
             .required('La contraseña es obligatoria')
@@ -268,7 +268,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="repetir_contrasena"
                                     type="password"
-                                    placeholder="Contrasena Usuario"
+                                    placeholder="Contraseña Usuario"
                                     value={formik.values.repetir_contrasena}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}

@@ -59,15 +59,15 @@ const formik = useFormik({
                     ),
 
         email : Yup.string()
-                    .email('El email no es valido')
-                    .required('El email es obligatorio'),
+                    .email('El correo no es valido')
+                    .required('El correo es obligatorio'),
 
         contrasena : Yup.string()
-                    .required('El contrasena es obligatorio')
+                    .required('La contraseña es obligatorio')
                     .min(8, "La contraseña tiene que tener al menos 8 caracteres"),
 
         repetir_contrasena : Yup.string()
-                    .required('El contrasena es obligatorio')
+                    .required('La contraseña es obligatorio')
                     .min(8, "La contraseña tiene que tener al menos 8 caracteres")
                     .oneOf([Yup.ref('contrasena'), null], 'Las contraseñas deben ser iguales')
 
@@ -200,7 +200,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="email"
                                     type="email"
-                                    placeholder="Email Usuario"
+                                    placeholder="Correo Usuario"
                                     value={formik.values.email}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -229,7 +229,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="contrasena"
                                     type="password"
-                                    placeholder="Contrasena Usuario"
+                                    placeholder="Contraseña Usuario"
                                     value={formik.values.contrasena}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -256,7 +256,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="repetir_contrasena"
                                     type="password"
-                                    placeholder="contrasena Usuario"
+                                    placeholder="Contraseña Usuario"
                                     value={formik.values.repetir_contrasena}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
