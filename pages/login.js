@@ -20,15 +20,18 @@ query Query($correoCliente: String!) {
   }
 `;
 
+const AUTENTICAR_CLIENTE=gql`
+mutation AutenticarCliente($input: AutenticarCInput) {
+    autenticarCliente(input: $input) {
+      token
+    }
+  }
+`;
+
 const Login = () => {
     //routing
     const router = useRouter();
-    const obtenerCliente = useQuery(OBTENER_CLIENTE);
-    // function cliente({correoCliente}) {
-    //     const{loading, error,data,refetch}=useQuery(OBTENER_CLIENTE,{
-    //         variables: {correoCliente},
-    //     })
-    // };
+    const [autenticarCliente] = useMutation(AUTENTICAR_CLIENTE);
 
     const formik = useFormik( {
         initialValues:{
@@ -44,20 +47,20 @@ const Login = () => {
 
         }),
         onSubmit: async valores => {
-            const {email} = valores;
+            const{email,password}=valores;
             try {
-                const {data} = await obtenerCliente ({
+                const {data} = await autenticarCliente ({
                     variables:{
                         input:{
-                            correoCliente: email
+                            contrasenia_cliente: password,
+                            correo_cliente: email
                         }
                     }
                 });
-                // refetch({correoCliente:email})
             console.log(data)
             Swal.fire(
                 'Sesion Iniciada',
-                'La secion se inicio correctamente',
+                'La sesion se inicio correctamente',
                 'success'
             )
             router.push('/')
