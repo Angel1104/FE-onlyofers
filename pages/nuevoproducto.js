@@ -8,25 +8,27 @@ import Swal from 'sweetalert2'
 import ComboEmpresas from '../componentes/ComboEmpresas';
 import ComboProductos from '../componentes/ComboProductos';
 import Router from 'next/router';
+import { inRange } from 'lodash';
 
 
 
 const NUEVO_PRODUCTO=gql`
-mutation nuevoProducto($input: ProductoInput){
-    nuevoProducto (input : $input){
-        id
-        nombre_producto
-        descripcion_producto
-        precio
-        existencia
-        fecha_elaboracion
-        fecha_vencimiento
-        creado
-        tipo_producto
-        empresa
-        estado
+mutation Mutation($input: ProductoInput) {
+    nuevoProducto(input: $input) {
+      id
+      nombre_producto
+      descripcion_producto
+      precio
+      existencia
+      fecha_elaboracion
+      fecha_vencimiento
+      creado
+      tipo_producto
+      empresa
+      estado
     }
   }
+  
 `;
 
 const OBTENER_PRODUCTOS= gql`
@@ -35,7 +37,11 @@ query ObtenerProductos {
       nombre_producto
       descripcion_producto
       precio
+      existencia
+      fecha_elaboracion
       fecha_vencimiento
+      tipo_producto
+      empresa
       estado
     }
   }
@@ -86,7 +92,6 @@ const NuevoProducto = () => {
         Swal.fire({
             title: 'Desea Agregar este producto?',
             icon: 'question',
-            showDenyButton: true,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -193,30 +198,45 @@ const NuevoProducto = () => {
         }),
         onSubmit: async valores => {
             const {nombre, descripcion, precio, existencia, fecha_elaboracion,fecha_vencimiento,tipo_producto,empresa,estado} = valores;
+            console.log(valores)
             try {
-                const {data} = await nuevoProducto({
-                    variables:{
-                        input : {
-                            nombre_producto: nombre,
-                            descripcion_producto: descripcion,
-                            precio: precio,
-                            existencia: existencia,
-                            fecha_elaboracion: fecha_elaboracion,
-                            fecha_vencimiento: fecha_vencimiento,
-                            tipo_producto: tipo_producto,
-                            empresa: empresa,
-                            estado:estado
-                        } 
+                Swal.fire({
+
+                    title: '¿Desea Agregar esta Empresa?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, Agregar',
+                    cancelButtonText: 'No, Cancelar'
+                  }).then(async(result)=>{
+                    if (result.isConfirmed) {
+                        const {data} = await nuevoProducto({
+                            variables:{
+                                input : {
+                                    nombre_producto: nombre,
+                                    descripcion_producto: descripcion,
+                                    precio: precio,
+                                    existencia: existencia,
+                                    fecha_elaboracion: fecha_elaboracion,
+                                    fecha_vencimiento: fecha_vencimiento,
+                                    tipo_producto: tipo_producto,
+                                    empresa: empresa,
+                                    estado:estado
+                                } 
+                            }
+                        });
+                        //producto creado correctamente mostrar mensaje
+                        console.log(data)
+                        Swal.fire(
+                            'Creado',
+                            'Creado correctamente',
+                            'success'
+                        )
+                        router.push('/productos');
                     }
-                });
-                //producto creado correctamente mostrar mensaje
-                console.log(data)
-                Swal.fire(
-                    'Creado',
-                    'Creado correctamente',
-                    'success'
-                )
-                router.push('/productos');
+                  })
+                
                 
             } catch (error) {
                 console.log(error)
@@ -241,7 +261,6 @@ const NuevoProducto = () => {
             <div className="w-full max-w-lg">
                 <div  className="bg-white shadow-md px-8 pt-6 pb-8 mb-4">
                 <form
-                   
                     onSubmit={formik.handleSubmit}
                 >
                             <div className="mb-4">
@@ -466,7 +485,6 @@ const NuevoProducto = () => {
                 <button 
                     type="submit" 
                     className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
-                    onClick={()=>confirmarAgregarProducto()}
                     >
                     
                     AGREGAR NUEVO PRODUCTO
@@ -474,7 +492,6 @@ const NuevoProducto = () => {
                 </button>
                 </form>
                 <button 
-                    type="" 
                     className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                     onClick={()=>Cancelar()}
                     >
