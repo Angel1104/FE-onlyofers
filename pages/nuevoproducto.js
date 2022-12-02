@@ -34,15 +34,16 @@ mutation Mutation($input: ProductoInput) {
 const OBTENER_PRODUCTOS= gql`
 query ObtenerProductos {
     obtenerProductos {
-      nombre_producto
       descripcion_producto
-      precio
+      empresa
+      estado
       existencia
       fecha_elaboracion
       fecha_vencimiento
+      nombre_producto
+      precio
       tipo_producto
-      empresa
-      estado
+      id
     }
   }
 `;
@@ -72,20 +73,22 @@ const NuevoProducto = () => {
 
     //mutation para crear producto
     const  [nuevoProducto]= useMutation(NUEVO_PRODUCTO
-        , {
-        update(cache, { data:{nuevoProducto}}){
-            // obtener el objeto de cache que deseamos actualizar
-            const { obtenerProductos} = cache.readQuery({ query: OBTENER_PRODUCTOS});
-
-            // reeescriibr el cache( el cache nunca se debe modificar se reescribe)
-            cache.writeQuery({
-                query: OBTENER_PRODUCTOS,
-                data:{
-                    obtenerProductos : [...obtenerProductos , nuevoProducto]
-                }
-            })
-        }
-    }
+    //     , {
+    //     update(cache, { data:{nuevoProducto}}){
+    //         // obtener el objeto de cache que deseamos actualizar
+    //         const { obtenerProductos} = cache.readQuery({ query: OBTENER_PRODUCTOS});
+    //         console.log(data)
+    //         // reeescriibr el cache( el cache nunca se debe modificar se reescribe)
+    //         cache.writeQuery({
+    //             query: OBTENER_PRODUCTOS,
+    //             data:{
+    //                 obtenerProductos : [...obtenerProductos , nuevoProducto]
+    //             }
+                
+    //         })
+    //         console.log(data)
+    //     }
+    // }
     );
 
     const confirmarAgregarProducto =()=>{
@@ -198,11 +201,11 @@ const NuevoProducto = () => {
         }),
         onSubmit: async valores => {
             const {nombre, descripcion, precio, existencia, fecha_elaboracion,fecha_vencimiento,tipo_producto,empresa,estado} = valores;
-            console.log(valores)
+            //console.log(valores)
             try {
                 Swal.fire({
 
-                    title: '¿Desea Agregar esta Empresa?',
+                    title: '¿Desea Agregar este producto?',
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
