@@ -90,7 +90,7 @@ const formik = useFormik({
             .required('El  NIT es Obligatorio')
             .moreThan(-1, 'No se aceptan números negativos')
             .integer('El NIT debe ser un número entero')
-            .test('len', 'El NIT debe tener 7 digitos', val => Math.ceil (Math.log10 (val+1)) === 7), 
+            .test('len', 'El NIT debe tener 7 digitos', val => Math.ceil (Math.log10 (val+1)) === 14), 
     }),
     onSubmit: valores => {
         console.log('enviando');
