@@ -44,10 +44,6 @@ const formik = useFormik({
                     .trim('El Nombre es Obligatorio')
                     .min(3, "El nombre tiene que tener al menos 3 caracteres")
                     .max(20, "El nombre no puede superar los 20 caracteres")
-                    .matches(
-                        /^[aA-zZ\s]+$/,
-                        'No puede usar caracteres especiales o de tipo númerico'
-                      ),*/
                       .matches(
                         /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
