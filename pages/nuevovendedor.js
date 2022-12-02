@@ -60,7 +60,7 @@ const formik = useFormik({
                     .min(3, "El nombre tiene que tener al menos 3 caracteres")
                     .max(50, "El nombre no puede superar los 20 caracteres")
                     .matches(
-                        /^[aA-zZ\s]+$/,
+                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
                       ),
         apellido_vendedor : Yup.string()
@@ -69,28 +69,28 @@ const formik = useFormik({
                     .min(3, "El apellido tiene que tener al menos 3 caracteres")
                     .max(50, "El apellido no puede superar los 20 caracteres")
                     .matches(
-                        /^[aA-zZ\s]+$/,
+                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
                     ),
 
         correo_vendedor : Yup.string()
-        .email('El email no es valido')
-        .required('El email es obligatorio'),
+            .email('El email no es valido')
+            .required('El email es obligatorio'),
 
         contrasenia_vendedor : Yup.string()
-        .required('La contraseña es obligatoria')
-        .min(8, "La contraseña tiene que tener al menos 8 caracteres"),
+            .required('La contraseña es obligatoria')
+            .min(8, "La contraseña tiene que tener al menos 8 caracteres"),
 
         repetir_contrasena : Yup.string()
-        .required('La contraseña es obligatoria')
-        .min(8, "La contraseña tiene que tener al menos 8 caracteres")
-        .oneOf([Yup.ref('contrasenia_vendedor'), null], 'Las contraseñas deben ser iguales'),
+             .required('La contraseña es obligatoria')
+             .min(8, "La contraseña tiene que tener al menos 8 caracteres")
+             .oneOf([Yup.ref('contrasenia_vendedor'), null], 'Las contraseñas deben ser iguales'),
 
         NIT : Yup.number()
-                        .required('La cantidad existente es Obligatorio')
-                        .positive('No se aceptan numeros negativos o "0"')
-                        .integer('la existencia debe ser en numeros enteros')
-                        .test('len', 'Debe tener 14 digitos', val => Math.ceil (Math.log10 (val+1)) === 14),   
+            .required('El  NIT es Obligatorio')
+            .moreThan(-1, 'No se aceptan números negativos')
+            .integer('El NIT debe ser un número entero')
+            .test('len', 'El NIT debe tener 7 digitos', val => Math.ceil (Math.log10 (val+1)) === 7), 
     }),
     onSubmit: valores => {
         console.log('enviando');
@@ -310,7 +310,7 @@ const Cancelar =()=>{
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="NIT"
-                                    type="number"
+                                    type="number" 
                                     placeholder="NIT"
                                     value={formik.values.NIT}
                                     onChange={formik.handleChange}
@@ -318,10 +318,10 @@ const Cancelar =()=>{
                                 />
                             </div>
                             {
-                                formik.touched.Nit && formik.errors.Nit ? (
+                                formik.touched.NIT && formik.errors.NIT ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                                         <p className="font-bold">Error</p>
-                                        <p>{formik.errors.Nit}</p>
+                                        <p>{formik.errors.NIT}</p>
                                     </div>
                                 ) : null
                             }

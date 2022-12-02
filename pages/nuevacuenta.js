@@ -22,8 +22,12 @@ const formik = useFormik({
                     .trim('El Nombre es Obligatorio')
                     .min(3, "El nombre tiene que tener al menos 3 caracteres")
                     .max(50, "El nombre no puede superar los 20 caracteres")
-                    .matches(
+                    /*.matches(
                         /^[aA-zZ\s]+$/,
+                        'No puede usar caracteres especiales o de tipo númerico'
+                      ),*/
+                      .matches(
+                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
                       ),
         apellido : Yup.string()
@@ -32,22 +36,22 @@ const formik = useFormik({
                     .min(3, "El apellido tiene que tener al menos 3 caracteres")
                     .max(50, "El apellido no puede superar los 20 caracteres")
                     .matches(
-                        /^[aA-zZ\s]+$/,
+                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
                     ),
 
         email : Yup.string()
-        .email('El email no es valido')
-        .required('El email es obligatorio'),
+                    .email('El email no es valido')
+                    .required('El email es obligatorio'),
 
         contrasena : Yup.string()
-        .required('El contrasena es obligatorio')
-        .min(8, "El contrasena tiene que tener al menos 8 caracteres"),
+                    .required('El contrasena es obligatorio')
+                    .min(8, "La contraseña tiene que tener al menos 8 caracteres"),
 
         repetir_contrasena : Yup.string()
-        .required('El contrasena es obligatorio')
-        .min(8, "El contrasena tiene que tener al menos 8 caracteres")
-        .oneOf([Yup.ref('contrasena'), null], 'Las contraseñas deben ser iguales')
+                    .required('El contrasena es obligatorio')
+                    .min(8, "La contraseña tiene que tener al menos 8 caracteres")
+                    .oneOf([Yup.ref('contrasena'), null], 'Las contraseñas deben ser iguales')
 
     }),
     onSubmit: valores => {
@@ -179,7 +183,7 @@ const Cancelar =()=>{
 
                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="passowrd">
-                                    Contrasena
+                                    Contraseña
 
                                 </label>
 
@@ -206,7 +210,7 @@ const Cancelar =()=>{
 
                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="repetir_contrasena">
-                                    Repetir Contrasena
+                                    Repetir Contraseña
 
                                 </label>
 
