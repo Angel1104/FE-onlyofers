@@ -43,10 +43,10 @@ const formik = useFormik({
     },
     validationSchema: Yup.object({
         nombre_vendedor : Yup.string()
-                    .required('El nombre es Obligatorio')
+                    .required('El Nombre es Obligatorio')
                     .trim('El Nombre es Obligatorio')
-                    .min(3, "El nombre tiene que tener al menos 3 caracteres")
-                    .max(20, "El nombre no puede superar los 20 caracteres")
+                    .min(3, "El Nombre tiene que tener al menos 3 caracteres")
+                    .max(20, "El Nombre no puede superar los 20 caracteres")
                     .matches(
                         /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
@@ -54,25 +54,25 @@ const formik = useFormik({
         apellido_vendedor : Yup.string()
                     .required('El Apellido es Obligatorio')
                     .trim('El Apellido es Obligatorio')
-                    .min(3, "El apellido tiene que tener al menos 3 caracteres")
-                    .max(20, "El apellido no puede superar los 20 caracteres")
+                    .min(3, "El Apellido tiene que tener al menos 3 caracteres")
+                    .max(20, "El Apellido no puede superar los 20 caracteres")
                     .matches(
                         /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
                     ),
 
         correo_vendedor : Yup.string()
-            .email('El correo no es valido')
-            .required('El correo es obligatorio'),
+            .email('El Correo no es valido')
+            .required('El Correo es obligatorio'),
 
         contrasenia_vendedor : Yup.string()
-            .required('La contraseña es obligatoria')
-            .min(8, "La contraseña tiene que tener al menos 8 caracteres"),
+            .required('La Contraseña es obligatoria')
+            .min(8, "La Contraseña tiene que tener al menos 8 caracteres"),
 
         repetir_contrasena : Yup.string()
-             .required('La contraseña es obligatoria')
-             .min(8, "La contraseña tiene que tener al menos 8 caracteres")
-             .oneOf([Yup.ref('contrasenia_vendedor'), null], 'Las contraseñas deben ser iguales'),
+             .required('La Contraseña es obligatoria')
+             .min(8, "La Contraseña tiene que tener al menos 8 caracteres")
+             .oneOf([Yup.ref('contrasenia_vendedor'), null], 'Las Contraseñas deben ser iguales'),
 
         NIT : Yup.number()
             .required('El  NIT es Obligatorio')
@@ -114,13 +114,13 @@ const formik = useFormik({
 
 const Cancelar =()=>{
     Swal.fire({
-        title: 'Desea Cancelar el registro?',
-        text: "Volvera al inicio ",
+        title: '¿Desea Cancelar el registro?',
+        text: "Volverá al inicio ",
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'si',
+        confirmButtonText: 'Si',
         cancelButtonText: 'No'
     }).then(async(result) => {
         if (result.isConfirmed) {
