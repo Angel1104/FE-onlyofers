@@ -9,29 +9,17 @@ import {useMutation,gql, useQuery} from '@apollo/client';
 
 
 const NUEVO_VENDEDOR=gql`
-mutation NuevoVendedor($input: VendedorInput) {
+mutation Mutation($input: VendedorInput) {
     nuevoVendedor(input: $input) {
-        nombre_vendedor
-        apellido_vendedor
-        contrasenia_vendedor
-        correo_vendedor
-        NIT
+      nombre_vendedor
+      NIT
+      apellido_vendedor
+      contrasenia_vendedor
+      correo_vendedor
     }
   }
 `;
 
-const OBTENER_VENDEDORES=gql`
-query Query {
-    obtenerVendedores {
-      apellido_vendedor
-      NIT
-      contrasenia_vendedor
-      correo_vendedor
-      id
-      nombre_vendedor
-    }
-  }
-`;
 
 const NuevoVendedor = () => {
 
@@ -58,7 +46,7 @@ const formik = useFormik({
                     .required('El nombre es Obligatorio')
                     .trim('El Nombre es Obligatorio')
                     .min(3, "El nombre tiene que tener al menos 3 caracteres")
-                    .max(50, "El nombre no puede superar los 20 caracteres")
+                    .max(20, "El nombre no puede superar los 20 caracteres")
                     .matches(
                         /^[aA-zZ\s]+$/,
                         'No puede usar caracteres especiales o de tipo númerico'
@@ -67,7 +55,7 @@ const formik = useFormik({
                     .required('El Apellido es Obligatorio')
                     .trim('El Apellido es Obligatorio')
                     .min(3, "El apellido tiene que tener al menos 3 caracteres")
-                    .max(50, "El apellido no puede superar los 20 caracteres")
+                    .max(20, "El apellido no puede superar los 20 caracteres")
                     .matches(
                         /^[aA-zZ\s]+$/,
                         'No puede usar caracteres especiales o de tipo númerico'
@@ -90,24 +78,20 @@ const formik = useFormik({
                         .required('La cantidad existente es Obligatorio')
                         .positive('No se aceptan numeros negativos o "0"')
                         .integer('la existencia debe ser en numeros enteros')
-                        .test('len', 'Debe tener 14 digitos', val => Math.ceil (Math.log10 (val+1)) === 14),   
+                        .test('len', 'Debe tener 14 digitos', val => Math.ceil (Math.log10 (val+1)) === 14), 
     }),
-    onSubmit: valores => {
-        console.log('enviando');
-        console.log(valores);
-    },
-
     onSubmit: async valores => {
         const {NIT, apellido_vendedor, contrasenia_vendedor, correo_vendedor,nombre_vendedor } = valores;
+        NIT=NIT.toString();
         try {
             const {data} = await nuevoVendedor({
                 variables:{
                     input : {
-                        nombre_vendedor: nombre_vendedor,
-                        apellido_vendedor: apellido_vendedor,
-                        contrasenia_vendedor: contrasenia_vendedor,
-                        correo_vendedor: correo_vendedor,
-                        NIT: NIT,
+                        nombre_vendedor,
+                        apellido_vendedor,
+                        contrasenia_vendedor,
+                        correo_vendedor,
+                        NIT,
                     } 
                 }
             });
@@ -158,11 +142,9 @@ const Cancelar =()=>{
                 <h1 className="text-center text-2x1 text-blue font-light">Nuevo Vendedor</h1>
 
                 <div className="flex justify-center mt-5">
-                    <div className="w-full max-w-sm">
+                    <div className="w-full max-w-sm bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4">
                         <form
-                            className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
                             onSubmit={formik.handleSubmit}
-                            
                             >
                             
                             <div className="mb-4">
@@ -286,7 +268,7 @@ const Cancelar =()=>{
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-light focus:outline-none focus:shadow-outline"
                                     id="repetir_contrasena"
                                     type="password"
-                                    placeholder="contrasena Usuario"
+                                    placeholder="Contrasena Usuario"
                                     value={formik.values.repetir_contrasena}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -318,10 +300,10 @@ const Cancelar =()=>{
                                 />
                             </div>
                             {
-                                formik.touched.Nit && formik.errors.Nit ? (
+                                formik.touched.NIT && formik.errors.NIT ? (
                                     <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
                                         <p className="font-bold">Error</p>
-                                        <p>{formik.errors.Nit}</p>
+                                        <p>{formik.errors.NIT}</p>
                                     </div>
                                 ) : null
                             }
@@ -329,22 +311,21 @@ const Cancelar =()=>{
                   <button 
                     type="submit" 
                     className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
-                    onClick={()=>confirmarRegistrarse  ()}
+                    //onClick={()=>confirmarRegistrarse  ()}
                     >
-                    
                     REGISTRARSE
                     
                   </button>
                 
-                     <button 
+                     
+                    </form>
+                    <button 
                             type="submit" 
                             className="bg-red-800 py-2 mt-2 px-4 w-full text-white uppercase hover:bg-gray-900"
                             onClick={()=>Cancelar()}
                          >
                           CANCELAR    
-                             </button>
-                            </form>
-
+                    </button>
                     </div>
                 </div>
             </Layout>

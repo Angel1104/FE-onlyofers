@@ -8,29 +8,24 @@ import Swal from 'sweetalert2'
 import Router from 'next/router';
 import Link from 'next/link'
 
-const AUTENTICAR_USUARIO = gql`
-    mutation autenticarUsuario($input : AutenticarInput){
-        autenticarUsuario(input:$input){
-        token
-        }
-    }
-`;
 const OBTENER_VENDEDOR = gql  `
 query ObtenerVendedor($correoVendedor: String!) {
     obtenerVendedor(correo_vendedor: $correoVendedor) {
-      contrasenia_vendedor
-      correo_vendedor
       NIT
       apellido_vendedor
+      contrasenia_vendedor
+      id
+      correo_vendedor
       nombre_vendedor
-        }
     }
+  }
 `;
 
 const IniciarSesionVE = () => {
     //routing
     const router = useRouter();
 
+    const obtenerVendedor = useQuery(OBTENER_VENDEDOR);
 
     
 //form para new vendedor
@@ -55,43 +50,23 @@ const IniciarSesionVE = () => {
                       .min(6, 'Debe tener minimo 6 caracteres')
         }),
         onSubmit: async valores => {
-            const {nombre, sucursal, direccion, telefono, tipo_empresa} = valores;
+            const {email} = valores;
             try {
-                Swal.fire({
-                    title: '¿Desea Agregar esta Empresa?',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si, Agregar',
-                    cancelButtonText: 'No, Cancelar'
-                }).then(async(result) => {
-                    if (result.isConfirmed) {
-        
-                        const {data} = await nuevaEmpresa({
-                            variables:{
-                                input : {
-                                    nombre_empresa: nombre,
-                                    numero_sucursal: sucursal,
-                                    direccion_empresa: direccion,
-                                    telefono: telefono,
-                                    tipo_empresa: tipo_empresa
-                                } 
-                            }
-                        });
-                        //empresa creada correctamente mostrar mensaje
-                        console.log(data)
-                        Swal.fire(
-                            'Creado',
-                            'Creado correctamente',
-                            'success'
-                        )
-                        router.push('/empresas');
-        
+                const {data} = await obtenerVendedor ({
+                    variables:{
+                        input:{
+                            correoVendedor: email
+                        }
                     }
-                })
-                
-                
+                });
+                // refetch({correoCliente:email})
+            console.log(data)
+            Swal.fire(
+                'Sesion Iniciada',
+                'La secion se inicio correctamente',
+                'success'
+            )
+            router.push('/')
             } catch (error) {
                 console.log(error)
             }
@@ -121,7 +96,7 @@ const IniciarSesionVE = () => {
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="email"
                                     type="email"
-                                    placeholder="Correo del Usuario"
+                                    placeholder="Correo"
                                     value={formik.values.email}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -186,7 +161,9 @@ const IniciarSesionVE = () => {
                             className="bg-gray-800 text-center mx-40 mb-5 mt-5 p-2 text-white uppercase hover:bg-gray-900"
                             value="Iniciar Sesion"
                         /> 
-                            <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿Eres un cliente?
+                            
+                </form>
+                <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿Eres un cliente?
                             <Link href="/login">
                             <a className='bg-gray-800 px-2 mx-12 mb-3 inline-block text-white hover:bg-gray-900  '>
                             Inicia Sesión
@@ -201,8 +178,6 @@ const IniciarSesionVE = () => {
                             </a>
                             </Link> 
                             </h1>
-                </form>
-                
                 </div>
             </div>
         </div>
