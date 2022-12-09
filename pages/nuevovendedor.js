@@ -48,7 +48,7 @@ const formik = useFormik({
                     .min(3, "El Nombre tiene que tener al menos 3 caracteres")
                     .max(20, "El Nombre no puede superar los 20 caracteres")
                     .matches(
-                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
+                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZáéíóú]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
                       ),
         apellido_vendedor : Yup.string()
@@ -57,7 +57,7 @@ const formik = useFormik({
                     .min(3, "El Apellido tiene que tener al menos 3 caracteres")
                     .max(20, "El Apellido no puede superar los 20 caracteres")
                     .matches(
-                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
+                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZáéíóú]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
                     ),
 
@@ -70,7 +70,7 @@ const formik = useFormik({
             .min(8, "La Contraseña tiene que tener al menos 8 caracteres"),
 
         repetir_contrasena : Yup.string()
-             .required('La Contraseña es obligatoria')
+             .required('La Contraseña es Obligatoria')
              .min(8, "La Contraseña tiene que tener al menos 8 caracteres")
              .oneOf([Yup.ref('contrasenia_vendedor'), null], 'Las Contraseñas deben ser iguales'),
 

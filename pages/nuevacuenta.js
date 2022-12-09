@@ -45,7 +45,7 @@ const formik = useFormik({
                     .min(3, "El Nombre tiene que tener al menos 3 caracteres")
                     .max(20, "El Nombre no puede superar los 20 caracteres")
                       .matches(
-                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
+                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZáéíóú]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
                       ),
         apellido : Yup.string()
@@ -54,13 +54,13 @@ const formik = useFormik({
                     .min(3, "El Apellido tiene que tener al menos 3 caracteres")
                     .max(20, "El Apellido no puede superar los 20 caracteres")
                     .matches(
-                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]+/,
+                        /[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZáéíóú]+/,
                         'No puede usar caracteres especiales o de tipo númerico'
                     ),
 
         email : Yup.string()
                     .email('El Correo no es valido')
-                    .required('El Correo es Obligatorio'),
+                    .required('El Correo es Obligatoria'),
 
         contrasena : Yup.string()
                     .required('La Contraseña es obligatorio')
