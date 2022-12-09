@@ -107,7 +107,7 @@ const NuevaEmpresa = () => {
                     .min(3, "El nombre tiene que tener al menos 3 caracteres")
                     .max(50, "El nombre no puede superar los 50 caracteres")
                     .matches(
-                        /^[aA-zZ\s]+$/,
+                        /^[aA-zZ1234567890\s]+$/,
                         'No puede usar caracteres especiales o de tipo númerico'
                       ),
 
@@ -194,6 +194,7 @@ const NuevaEmpresa = () => {
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nombre">
                                     Nombre
                                 </label>
+                                <p className='block text-gray-600 text-sm mb-2' > Aumentar la letra S + número de Sucursal al final del nombre </p>
                                 <input
                                     className="shadow apperance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="nombre"
