@@ -74,11 +74,15 @@ const Sidebar = () => {
                     </a>
                     </Link>
                     </li>                    
-                    <li className={iniciarSesion() ? "bg-blue-800 p-2" : "p-2"}>
-                    <Link href="/iniciarsesionve">
+                    <li 
+                    //className={iniciarSesion() ? "bg-blue-800 p-2" : "p-2"}
+                    className="p-2"
+                    >
+                    <Link href="/login">
                     <a className='text-white block'>
-                        Iniciar Sesión
+                        Cerar Sesion
                     </a>
+                    {/* {localStorage.removeItem('token')} */}
                     </Link>
                     </li>
                 </nav>
