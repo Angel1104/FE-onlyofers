@@ -72,15 +72,29 @@ const IniciarSesionVE = () => {
                     }
                 });
             console.log(data)
-            Swal.fire(
-                'Sesion Iniciada',
-                'La secion se inicio correctamente',
-                'success'
-            )
-            router.push('/')
+            guardarMensaje("Autenticando...");
+
+            //guardar el toekn en localstorage
+            const {token} = data.autenticarVendedor;
+            localStorage.setItem('token', token)
+            
+
+           
+            setTimeout(() => {
+                guardarMensaje(null);
+                Swal.fire(
+                    'Sesion Iniciada',
+                    'La secion se inicio correctamente',
+                    'success'
+                )
+                router.push('/')
+            }, 2000);
             } catch (error) {
                 guardarMensaje(error.message)
                 console.log(error)
+                setTimeout(() => {
+                    guardarMensaje(null);
+                }, 3000);
             }
         }
     });
@@ -184,19 +198,19 @@ const IniciarSesionVE = () => {
                         /> 
                             
                 </form>
-                <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿Eres un cliente?
+                            {/* <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿Eres un cliente?
                             <Link href="/login">
                             <a className='bg-gray-800 px-2 mx-12 mb-3 inline-block text-white hover:bg-gray-900  '>
                             Inicia Sesión
                             </a>
                             </Link> 
-                            </h1>
+                            </h1> */}
 
                             <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿No tiene una cuenta?
                             <Link href="/nuevovendedor">
-                            <a className='bg-gray-800 px-2 mx-3 inline-block text-white hover:bg-gray-900 '>
-                            Registrarse  
-                            </a>
+                                <a className='bg-gray-800 px-2 mx-3 inline-block text-white hover:bg-gray-900 '>
+                                Registrarse  
+                                </a>
                             </Link> 
                             </h1>
                             {mensaje && mostrarMensaje()}

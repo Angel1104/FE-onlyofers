@@ -60,15 +60,28 @@ const Login = () => {
                     }
                 });
             console.log(data)
-            Swal.fire(
-                'Sesion Iniciada',
-                'La sesion se inicio correctamente',
-                'success'
-            )
-            router.push('/')
+            guardarMensaje("Autenticando...");
+
+            //guardar el toekn en localstorage
+            const {token} = data.autenticarCliente;
+            localStorage.setItem('token', token)
+
+            
+            setTimeout(() => {
+                guardarMensaje(null);
+                Swal.fire(
+                    'Sesion Iniciada',
+                    'La sesion se inicio correctamente',
+                    'success'
+                )
+                router.push('/')
+            }, 2000);
             } catch (error) {
                 guardarMensaje(error.message)
-                console.log(error)
+                //console.log(error)
+                setTimeout(() => {
+                    guardarMensaje(null);
+                }, 3000);
             }
         }
     })
@@ -158,13 +171,13 @@ const Login = () => {
                             />
                             </form>
                             
-                            <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿Eres un vendedor?
+                            {/* <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿Eres un vendedor?
                             <Link href="/iniciarsesionve">
                             <a className='bg-gray-800 px-2 mx-8 mb-3 inline-block text-white hover:bg-gray-900  '>
                             Inicia Sesión
                             </a>
                             </Link> 
-                            </h1>
+                            </h1> */}
 
                             <h1 className="text-black block mx-16 text-gray-800 font-ligth ">¿No tiene una cuenta?
                             <Link href="/nuevacuenta">
