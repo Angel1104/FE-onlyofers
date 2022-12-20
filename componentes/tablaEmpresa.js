@@ -65,13 +65,6 @@ const TablaEmpresa = ({empresa}) => {
                             "eliminarEmpresaId": id
                         }
                     })
-                    //mostrar alerta
-
-                    Swal.fire(
-                        'Eliminado!',
-                        data.eliminarEmpresa,
-                        'success'
-                      )
                 } catch (error) {
                     console.log(error)
                 }
